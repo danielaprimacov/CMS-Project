@@ -1,8 +1,22 @@
 <?php 
     //Superglobal
 if(isset($_POST['submit'])) {
+  $name = array("Samid", "Jane", "Tom", "Peter", "Maria");
+  $min = 5;
+  $max = 10;
+
   $username = $_POST['username'];
   $password = $_POST['password'];
+
+  if(strlen($username) < $min && strlen($username) > $max) {
+    echo "Username must be longer 5 characters and less than 10!";
+  }
+
+  if(!in_array($username, $name)){
+    echo "Invalid username";
+  } else {
+    echo "Welcome";
+  }
 }
 ?>
 
