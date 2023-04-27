@@ -54,7 +54,7 @@ if(isset($_POST['submit'])) {
         <label for="password">Password</label>
         <input type="password" class="form-control" name="password" placeholder="Password">
       </div>
-      <input class="btn btn-primary" type="submit" name="submit" value="Submit"> 
+      <input class="btn btn-primary mt-3" type="submit" name="submit" value="Submit"> 
     </form>
   </div>
 </div>
