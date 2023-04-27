@@ -23,6 +23,7 @@ if (isset($_POST['submit'])) {
 
 <div class="container">
   <div class="col-sm-6">
+    <h1 class="text-center">Delete User</h1>
     <form action="login_delete.php" method="post"> 
       <div class="form-group">
         <label for="username">Username</label>
@@ -33,6 +34,7 @@ if (isset($_POST['submit'])) {
         <input type="password" class="form-control" name="password" placeholder="Password">
       </div>
       <div class="form-group">
+        <label for="id" class="form-label">Select id:</label>
         <select name="id" id="">
           <?php
           showData();
