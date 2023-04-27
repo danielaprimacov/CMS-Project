@@ -26,11 +26,11 @@ if (isset($_POST['submit'])) {
     <h1 class="text-center">Delete User</h1>
     <form action="login_delete.php" method="post"> 
       <div class="form-group">
-        <label for="username">Username</label>
+        <label class="form-label" for="username">Username</label>
         <input type="text" class="form-control" name="username" placeholder="Username">
       </div>
       <div class="form-group">
-        <label for="password">Password</label>
+        <label class="form-label" for="password">Password</label>
         <input type="password" class="form-control" name="password" placeholder="Password">
       </div>
       <div class="form-group">
