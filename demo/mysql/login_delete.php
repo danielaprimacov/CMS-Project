@@ -39,7 +39,7 @@ if (isset($_POST['submit'])) {
           ?>
         </select>
       </div>
-      <input class="btn btn-primary" type="submit" name="submit" value="Delete"> 
+      <input class="btn btn-primary mt-3" type="submit" name="submit" value="Delete"> 
     </form>
   </div>
 </div>
