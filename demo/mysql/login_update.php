@@ -1,29 +1,14 @@
-<?php include "db.php"; ?>
-<?php include "functions.php"; ?>
-
-<?php 
-  if(isset($_POST['submit'])) {
-    updateTable();
-}
-?>
+<?php include "db.php";?>
+<?php include "functions.php";?>
 
 
-<!DOCTYPE html>
-<html lang="en">
+<?php updateTable();?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <title>Login App</title>
-</head>
-
-<body>
+<?php include "includes/header.php";?>
 
 <div class="container">
   <div class="col-sm-6">
-    <h1 class="text-center">Update User Information</h1>
+    <h1 class="text-center">Update User</h1>
     <form action="login_update.php" method="post"> 
       <div class="form-group">
         <label class="form-label" for="username">Username</label>
@@ -34,8 +19,8 @@
         <input type="password" class="form-control" name="password" placeholder="Password">
       </div>
       <div class="form-group">
-        <label for="id" class="form-label">Select id:</label>
-        <select name="id" id="">
+        <label class="form-label" for="id">Select id: </label>
+        <select class="mt-3" name="id" id="">
           <?php
           showData();
           ?>
@@ -48,7 +33,4 @@
 
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-</body>
-
-</html>
+<?php include "includes/footer.php";?>
