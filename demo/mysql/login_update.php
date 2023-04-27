@@ -23,16 +23,18 @@
 
 <div class="container">
   <div class="col-sm-6">
+    <h1 class="text-center">Update User Information</h1>
     <form action="login_update.php" method="post"> 
       <div class="form-group">
-        <label for="username">Username</label>
+        <label class="form-label" for="username">Username</label>
         <input type="text" class="form-control" name="username" placeholder="Username">
       </div>
       <div class="form-group">
-        <label for="password">Password</label>
+        <label class="form-label" for="password">Password</label>
         <input type="password" class="form-control" name="password" placeholder="Password">
       </div>
       <div class="form-group">
+        <label for="id" class="form-label">Select id:</label>
         <select name="id" id="">
           <?php
           showData();
