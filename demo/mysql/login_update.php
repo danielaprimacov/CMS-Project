@@ -39,7 +39,7 @@
           ?>
         </select>
       </div>
-      <input class="btn btn-primary" type="submit" name="submit" value="Update"> 
+      <input class="btn btn-primary mt-3" type="submit" name="submit" value="Update"> 
     </form>
   </div>
 </div>
