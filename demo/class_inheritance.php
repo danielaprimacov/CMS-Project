@@ -20,8 +20,8 @@ class Car
 $car = new Car(); // create an object -- instance of class Car
 
 
-class Plane extends Car{
-
+class Plane extends Car {
+  var $wheel = 20;
 }
 
 $jet = new Plane();
