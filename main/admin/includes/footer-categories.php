@@ -1,4 +1,4 @@
-<?php include "main-content.php"; ?>
+<?php include "main-content-cat.php"; ?>
 <!-- /#wrapper -->
 
 <!-- jQuery -->
