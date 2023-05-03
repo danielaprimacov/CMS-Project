@@ -12,18 +12,15 @@
         $cat_id = $row['cat_id'];
         $cat_title = $row['cat_title'];
     ?>
-        <input type="text" class="form-control" name="cat_title" value="
-            <?php if (isset($cat_title)) {
-              echo $cat_title;
-            } ?> ">
+        <input type="text" class="form-control" name="cat_title" value="<?php if (isset($cat_title)) {echo $cat_title;} ?>">
       <?php } ?>
     <?php } ?>
 
     <?php
 
-    if (isset($_POST['edit'])) {
-      $cat_title_edit = $_GET['category_title'];
-      $query = "UPDATE categorie SET cat_title = '{$cat_title_edit}' WHERE cat_id = '{$cat_id}'";
+    if (isset($_POST['update_category'])) {
+      $cat_title_edit = $_POST['cat_title'];
+      $query = "UPDATE categories SET cat_title = '{$cat_title_edit}' WHERE cat_id = '{$cat_id}'";
       $updateQuery = mysqli_query($connection, $query);
 
       if (!$updateQuery) {
