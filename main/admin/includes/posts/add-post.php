@@ -6,7 +6,7 @@ if (isset($_POST['add_post'])) {
   $post_category_id = $_POST['post_cat'];
   $post_status = $_POST['post_status'];
   $post_tags = $_POST['post_tags'];
-  $post_comments_count = 2;
+  //$post_comments_count = 2;
 
   $post_img = $_FILES['post_img']['name'];
   $post_img_temp = $_FILES['post_img']['tmp_name'];

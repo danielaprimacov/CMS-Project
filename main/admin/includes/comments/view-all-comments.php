@@ -59,7 +59,7 @@ if (isset($_GET['delete'])) {
   <tbody>
     <?php
 
-    $query = "SELECT * FROM comments";
+    $query = "SELECT * FROM comments ORDER BY comment_id DESC";
     $selectAllComments = mysqli_query($connection, $query);
 
     while ($row = mysqli_fetch_assoc($selectAllComments)) {
