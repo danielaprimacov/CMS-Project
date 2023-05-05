@@ -6,7 +6,6 @@ if (isset($_POST['add_post'])) {
   $post_category_id = $_POST['post_cat'];
   $post_status = $_POST['post_status'];
   $post_tags = $_POST['post_tags'];
-  //$post_comments_count = 2;
 
   $post_img = $_FILES['post_img']['name'];
   $post_img_temp = $_FILES['post_img']['tmp_name'];
@@ -15,8 +14,8 @@ if (isset($_POST['add_post'])) {
 
   move_uploaded_file($post_img_temp, "../images/$post_img");
 
-  $query = "INSERT INTO posts(post_category_id, post_title, post_author, post_date, post_img, post_content, post_tags, post_comments_count, post_status) ";
-  $query .= "VALUES({$post_category_id}, '{$post_title}','{$post_author}', now(), '{$post_img}', '{$post_content}', '{$post_tags}', {$post_comments_count}, '{$post_status}')";
+  $query = "INSERT INTO posts(post_category_id, post_title, post_author, post_date, post_img, post_content, post_tags, post_status) ";
+  $query .= "VALUES({$post_category_id}, '{$post_title}','{$post_author}', now(), '{$post_img}', '{$post_content}', '{$post_tags}', '{$post_status}')";
 
   $createPost = mysqli_query($connection, $query);
   

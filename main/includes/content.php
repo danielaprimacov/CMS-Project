@@ -17,7 +17,12 @@
                 $post_date = $row['post_date'];
                 $post_img = $row['post_img'];
                 $post_content = substr($row['post_content'], 0, 200);
-            ?>
+                $post_status = $row['post_status'];
+
+                if(strtolower($post_status) !== 'published') {
+                    echo "<h1>No post here!</h1>";
+                } else {
+                ?>
 
                 <h1 class="page-header">
                     Page Heading
@@ -39,6 +44,7 @@
                 <a class="btn btn-primary" href="post.php?p_id=<?php echo $post_id; ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
 
                 <hr>
+                <?php } ?>
 
             <?php } ?>
 
