@@ -49,7 +49,8 @@
 
                 if ($user_password !== $db_user_password) {
                     echo "<div class='alert alert-danger' role='alert'>Password is not correct!</div>";
-                } elseif (($user_name == $db_user_name) && ($user_password == $db_user_password)) {
+                } elseif (($user_name === $db_user_name) && ($user_password === $db_user_password)) {
+                    $_SESSION['user_id'] = $db_user_id;
                     $_SESSION['user_name'] = $db_user_name;
                     $_SESSION['user_firstname'] = $db_user_firstname;
                     $_SESSION['user_lastname'] = $db_user_lastname;
@@ -64,7 +65,7 @@
     }
     ?>
 
-
+    <!--Login  -->
     <div class="well">
         <h4>Login</h4>
         <form action="" method="post">
@@ -80,7 +81,6 @@
         </form> <!--search form-->
         <!-- /.input-group -->
     </div>
-
 
     <!-- Blog Categories Well -->
     <?php

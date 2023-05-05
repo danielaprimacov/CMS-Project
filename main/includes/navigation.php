@@ -14,22 +14,25 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
 
-      <?php
+        <?php
 
-      $query = "SELECT * FROM categories";
-      $selectAllCategories = mysqli_query($connection, $query);
+        $query = "SELECT * FROM categories";
+        $selectAllCategories = mysqli_query($connection, $query);
 
-      while($row = mysqli_fetch_assoc($selectAllCategories)) {
-        $cat_title = $row['cat_title'];
-        echo "<li><a href='#'>{$cat_title}</a></li>";
-      }
-      
-      ?>
+        while ($row = mysqli_fetch_assoc($selectAllCategories)) {
+          $cat_title = $row['cat_title'];
+          echo "<li><a href='#'>{$cat_title}</a></li>";
+        }
 
+        ?>
 
-        <li>
-          <a href="admin">Admin</a>
-        </li>
+        <?php if (strtolower($_SESSION['user_role']) == 'admin') {
+        ?>
+          <li>
+            <a href="admin">Admin</a>
+          </li>
+        <?php } ?>
+
         <!-- <li>
           <a href="#">Services</a>
         </li>

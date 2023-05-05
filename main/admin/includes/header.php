@@ -1,9 +1,10 @@
 <?php
-if (isset($_SESSION['user_role'])) {
-    if (strtolower($_SESSION['user_role']) !== 'admin') {
-        header("Location: ../index.php");
-    }
+if (!isset($_SESSION['user_role'])) {
+    header("Location: ../index.php");
+} elseif (strtolower($_SESSION['user_role']) == 'admin') {
+    echo "";
 }
+
 ?>
 
 
