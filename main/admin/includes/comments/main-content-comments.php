@@ -1,9 +1,9 @@
 <div id="wrapper">
 
   <!-- Navigation -->
-  <?php include "/xampp/htdocs/CMS-Project/cms/admin/includes/navigation.php"; ?>
+  <?php include "/xampp/htdocs/CMS-Project/main/main/admin/includes/navigation.php"; ?>
   <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-  <?php include "/xampp/htdocs/CMS-Project/cms/admin/includes/sidebar-nav.php"; ?>
+  <?php include "/xampp/htdocs/CMS-Project/main/main/admin/includes/sidebar-nav.php"; ?>
 
   <div id="page-wrapper">
 

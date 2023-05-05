@@ -10,7 +10,7 @@
           <a href="./posts.php">View All Posts</a>
         </li>
         <li>
-          <a href="#">Add Post</a>
+          <a href="posts.php?source=add-post">Add Post</a>
         </li>
       </ul>
     </li>
@@ -18,7 +18,7 @@
       <a href="./categories.php"><i class="fa fa-fw fa-wrench"></i> Categories</a>
     </li>
     <li>
-      <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Comments</a>
+      <a href="./comments.php"><i class="fa fa-fw fa-file"></i> Comments</a>
     </li>
     <li>
       <a href="javascript:;" data-toggle="collapse" data-target="#users_dropdown"><i class="fa fa-fw fa-arrows-v"></i> Users <i class="fa fa-fw fa-caret-down"></i></a>

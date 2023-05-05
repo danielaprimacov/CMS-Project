@@ -1,47 +1,34 @@
 <div class="row">
   <div class="col-lg-12">
     <h1 class="page-header">
-      Add a new category
+      Posts
       <small>Author</small>
     </h1>
-    <div class="col-xs-6">
-      <?php insertCategory(); ?>
-      <form action="" method="post">
-        <div class="form-group">
-          <label class="form-label" for="category_title">Add Category</label>
-          <input class="form-control" type="text" name="category_title">
-        </div>
-        <div class="form-group">
-          <input class="btn btn-primary" type="submit" name="submit" value="Add Category">
-        </div>
-      </form>
 
-      <?php
+    <?php
 
-      if (isset($_GET['edit'])) {
-        $cat_id = $_GET['edit'];
-        include "includes/edit_categories.php";
-      }
+    if (isset($_GET['source'])) {
+      $source = $_GET['source'];
+    } else {
+      $source = '';
+    }
 
-      ?>
-    </div>
+    switch ($source) {
+      case 'add-post':
+        include "add-post.php";
+        break;
+      case 'edit-post':
+        include "edit-post.php";
+        break;
+      case '3':
+        echo "";
+        break;
+      default:
+        include "view-all-posts.php";
+        break;
+    }
 
-    <div class="col-xs-6">
+    ?>
 
-      <table class="table table-bordered table-hover">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Category Title</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php deleteCategory(); ?>
-
-          <?php showCategories(); ?>
-
-        </tbody>
-      </table>
-    </div>
   </div>
 </div>
