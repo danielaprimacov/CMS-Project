@@ -13,4 +13,5 @@
       </li>
     </ol>
   </div>
+<?php include "admin-widget.php"; ?>
 </div>
