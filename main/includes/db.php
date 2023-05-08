@@ -17,3 +17,5 @@ if(!$connection) {
 }
 
 ?>
+
+<?php session_start(); ?>

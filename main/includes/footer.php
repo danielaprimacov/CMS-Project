@@ -1,16 +1,16 @@
-    <!-- Navigation -->
-    <?php include "includes/navigation.php"; ?>
+<!-- Navigation -->
+<?php include "includes/navigation.php"; ?>
 
-    <!-- Page Content -->
-    <?php include "includes/content.php"; ?>
-    <!-- /.container -->
+<!-- Page Content -->
+<?php include "includes/content.php"; ?>
+<!-- /.container -->
 
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+<!-- jQuery -->
+<script src="js/jquery.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
 
-    </body>
+</body>
 
-    </html>
+</html>

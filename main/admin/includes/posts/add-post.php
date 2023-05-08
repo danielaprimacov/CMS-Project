@@ -30,18 +30,19 @@ if (isset($_POST['add_post'])) {
 
 <form action="" method="post" enctype="multipart/form-data">
   <div class="form-group">
-    <label for="title">Post Title</label>
+    <label class="form-label" for="title">Post Title</label>
     <input type="text" class="form-control" name="title">
   </div>
 
   <div class="form-group">
-    <label for="post_content">Post Content</label>
-    <textarea type="text" class="form-control" name="post_content" id="" cols="30" rows="10"></textarea>
+    <label class="summernote" for="post_content">Post Content</label>
+    <textarea type="text" class="form-control" name="post_content" id="summernote" cols="30" rows="10"></textarea>
   </div>
 
   <div class="form-group">
     <label class="form-label" for="post_cat">Post Category </label>
-    <select name="post_cat" id="post_cat">
+    <select class="form-control" name="post_cat" id="post_cat">
+      <option selected>Choose...</option>
       <?php
       $query = "SELECT * FROM categories";
       $selectCategories = mysqli_query($connection, $query);
@@ -61,23 +62,26 @@ if (isset($_POST['add_post'])) {
   </div>
 
   <div class="form-group">
-    <label for="post_author">Post Author</label>
+    <label class="form-label" for="post_author">Post Author</label>
     <input type="text" class="form-control" name="post_author">
   </div>
 
   <div class="form-group">
-    <label for="post_status">Post Status</label>
-    <input type="text" class="form-control" name="post_status">
-  </div>
+    <label class="form-label" for="post_status">Post Status</label>
+    <select class="form-control" name="post_status">
+      <option value="Default">Choose...</option>
+      <option value="Draft">Draft</option>
+      <option value="Published">Published</option>
+    </select>
 
   <div class="form-group">
-    <label for="post_tags">Post Tags</label>
+    <label class="form-label" for="post_tags">Post Tags</label>
     <input type="text" class="form-control" name="post_tags">
   </div>
 
   <div class="form-group">
-    <label for="post_img">Post Image</label>
-    <input type="file" class="form-control" name="post_img">
+    <label class="form-label" for="post_img">Post Image</label>
+    <input type="file" name="post_img">
   </div>
 
   <div class="form-group">

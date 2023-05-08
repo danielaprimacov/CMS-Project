@@ -6,7 +6,7 @@ if (isset($_GET['p_id'])) {
 $query = "SELECT * FROM posts WHERE post_id = $the_post_id ";
 $selectPostById = mysqli_query($connection, $query);
 
-if(!$selectPostById) {
+if (!$selectPostById) {
   die("Query failed!" . mysqli_error($connection));
 }
 
@@ -23,7 +23,7 @@ while ($row = mysqli_fetch_assoc($selectPostById)) {
   $post_date = $row['post_date'];
 }
 
-if(isset($_POST['update_post'])) {
+if (isset($_POST['update_post'])) {
   $post_author = mysqli_real_escape_string($connection, $_POST['post_author']);
   $post_title = mysqli_real_escape_string($connection, $_POST['post_title']);
   $post_category_id = $_POST['post_category'];
@@ -36,11 +36,11 @@ if(isset($_POST['update_post'])) {
 
   move_uploaded_file($post_img_temp, "../images/$post_img");
 
-  if(empty($post_img)) {
+  if (empty($post_img)) {
     $query = "SELECT * FROM posts WHERE post_id = $the_post_id ";
     $selectImage = mysqli_query($connection, $query);
 
-    while($row = mysqli_fetch_assoc($selectImage)) {
+    while ($row = mysqli_fetch_assoc($selectImage)) {
       $post_img = $row['post_img'];
     }
   }
@@ -48,7 +48,7 @@ if(isset($_POST['update_post'])) {
   $query = "UPDATE posts SET post_title = '{$post_title}', post_category_id = {$post_category_id}, post_date = now(), post_author = '{$post_author}', post_status = '{$post_status}', post_tags = '{$post_tags}', post_content = '{$post_content}', post_img = '{$post_img}' WHERE post_id = {$the_post_id}";
 
   $editQuery = mysqli_query($connection, $query);
-  if(!$editQuery) {
+  if (!$editQuery) {
     die("Query failed!" . mysqli_error($connection));
   } else {
     echo "<div class='alert alert-success' role='alert'>Post Successfully Updated!</div>";
@@ -70,7 +70,7 @@ if(isset($_POST['update_post'])) {
 
   <div class="form-group">
     <label class="form-label" for="post_category">Post Category </label>
-    <select name="post_category" id="post_cat">
+    <select class="form-control" name="post_category" id="post_cat">
       <?php
       $query = "SELECT * FROM categories";
       $selectCategories = mysqli_query($connection, $query);
@@ -96,7 +96,23 @@ if(isset($_POST['update_post'])) {
 
   <div class="form-group">
     <label class="form-label" for="post_status">Post Status</label>
-    <input type="text" class="form-control" name="post_status" value="<?php echo $post_status; ?>">
+    <select class="form-control" name="post_status" id="post_status">
+      <?php
+      $query = "SELECT DISTINCT post_status FROM posts";
+      $selectStatusPost = mysqli_query($connection, $query);
+
+      if (!$selectStatusPost) {
+        die("Query failed!" . mysqli_error($connection));
+      }
+
+      while ($row = mysqli_fetch_assoc($selectStatusPost)) {
+        $post_id = $row['post_id'];
+        $post_status = $row['post_status'];
+
+        echo "<option value='$post_id'>$post_status</option>";
+      }
+      ?>
+    </select>
   </div>
 
   <div class="form-group">
@@ -108,7 +124,7 @@ if(isset($_POST['update_post'])) {
     <label class="form-label" for="post_img">Post Image</label>
     <img class="img-responsive" src="../images/<?php echo $post_img; ?>" name="post_img">
     <label class="form-label" for="image">Select new image: </label>
-    <input class="" type="file" name="image">
+    <input type="file" name="image">
   </div>
 
   <div class="form-group">

@@ -123,7 +123,15 @@
 <!-- /.row -->
 
 <?php
-$query = "SELECT * FROM posts WHERE post_status = 'draft'";
+$query = "SELECT * FROM posts WHERE post_status = 'Published'";
+$selectAllPubPosts = mysqli_query($connection, $query);
+$publishedCount = mysqli_num_rows($selectAllPubPosts);
+if(!$selectAllPubPosts){
+    die("Query failed!" . mysqli_error($connection));
+}
+
+
+$query = "SELECT * FROM posts WHERE post_status = 'Draft'";
 $selectAllDraftPosts = mysqli_query($connection, $query);
 $draftCount = mysqli_num_rows($selectAllDraftPosts);
 if(!$selectAllDraftPosts){
@@ -158,8 +166,8 @@ if(!$selectAllUser){
                 ['Data', 'Count'],
 
                 <?php
-                $elements = ['Active Posts', 'Draft Posts', 'Comments', 'Unapproved Comments', 'Users', 'Simple Users', 'Categories'];
-                $countElements = [$postCount, $draftCount, $commentCount, $unapComCount, $userCount, $userScount, $cateogryCount];
+                $elements = ['All Posts', 'Active Posts', 'Draft Posts', 'Comments', 'Unapproved Comments', 'Users', 'Simple Users', 'Categories'];
+                $countElements = [$postCount, $publishedCount, $draftCount, $commentCount, $unapComCount, $userCount, $userScount, $cateogryCount];
 
                 for ($i = 0; $i < sizeof($elements); $i++) {
                     echo "['{$elements[$i]}'" . "," . "{$countElements[$i]}],";

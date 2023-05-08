@@ -57,12 +57,12 @@ if (isset($_POST['add_user'])) {
 
 <form action="" method="post" enctype="multipart/form-data">
   <div class="form-group">
-    <label for="user_name">Enter Username</label>
+    <label class="form-label" for="user_name">Enter Username</label>
     <input type="text" class="form-control" name="user_name" value="<?php echo $user_name; ?>">
   </div>
 
   <div class="form-group">
-    <label for="user_firstname">Enter First Name</label>
+    <label class="form-label" for="user_firstname">Enter First Name</label>
     <input type="text" class="form-control" name="user_firstname" value="<?php echo $user_firstname; ?>">
   </div>
 
@@ -72,18 +72,18 @@ if (isset($_POST['add_user'])) {
   </div>
 
   <div class="form-group">
-    <label for="user_email">Enter Email</label>
+    <label class="form-label" for="user_email">Enter Email</label>
     <input type="email" class="form-control" name="user_email" value="<?php echo $user_email; ?>">
   </div>
 
   <div class="form-group">
-    <label for="user_email">Enter Password</label>
+    <label class="form-label" for="user_email">Enter Password</label>
     <input type="password" class="form-control" name="user_password" value="<?php echo $user_password; ?>">
   </div>
 
   <div class="form-group">
-    <label for="user_role">User Role</label>
-    <select name="user_role">
+    <label class="form-label" for="user_role">User Role</label>
+    <select class="form-control" name="user_role">
       <?php
       if(strtolower($user_role) == 'admin') {
         echo "<option value='User'>User</option>";
@@ -95,7 +95,7 @@ if (isset($_POST['add_user'])) {
   </div>
 
   <div class="form-group">
-    <label for="old_image">Existing Profile Image</label>
+    <label class="form-label" for="old_image">Existing Profile Image</label>
     <img class="img-responsive" src="../images/profile/<?php echo $user_image; ?>" name="old_image">
     <label for="user_image">Select Profile Image</label>
     <input type="file" class="form-control" name="user_image">

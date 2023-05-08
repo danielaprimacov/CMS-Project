@@ -27,12 +27,12 @@ if (isset($_POST['add_user'])) {
 
 <form action="" method="post" enctype="multipart/form-data">
   <div class="form-group">
-    <label for="user_name">Enter Username</label>
+    <label class="form-label" for="user_name">Enter Username</label>
     <input type="text" class="form-control" name="user_name">
   </div>
 
   <div class="form-group">
-    <label for="user_firstname">Enter First Name</label>
+    <label class="form-label" for="user_firstname">Enter First Name</label>
     <input type="text" class="form-control" name="user_firstname">
   </div>
 
@@ -42,27 +42,27 @@ if (isset($_POST['add_user'])) {
   </div>
 
   <div class="form-group">
-    <label for="user_email">Enter Email</label>
+    <label class="form-label" for="user_email">Enter Email</label>
     <input type="email" class="form-control" name="user_email">
   </div>
 
   <div class="form-group">
-    <label for="user_email">Enter Password</label>
+    <label class="form-label" for="user_email">Enter Password</label>
     <input type="password" class="form-control" name="user_password">
   </div>
 
   <div class="form-group">
-    <label for="user_role">User Role</label>
-    <select name="user_role">
-      <option value="default">--------</option>
+    <label class="form-label" for="user_role">User Role</label>
+    <select class="form-control" name="user_role">
+      <option value="Default">Choose...</option>
       <option value="User">User</option>
       <option value="Admin">Admin</option>
     </select>
   </div>
 
   <div class="form-group">
-    <label for="user_image">Select Profile Image</label>
-    <input type="file" class="form-control" name="user_image">
+    <label class="form-label" for="user_image">Select Profile Image</label>
+    <input type="file" name="user_image">
   </div>
 
   <div class="form-group">
