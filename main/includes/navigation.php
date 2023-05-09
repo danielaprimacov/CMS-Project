@@ -26,19 +26,19 @@
 
         ?>
 
-        <?php if (strtolower($_SESSION['user_role']) == 'admin') {
+        <?php
+        if (strtolower($_SESSION['user_role']) == 'admin') {
         ?>
           <li>
             <a href="admin">Admin</a>
           </li>
+          <?php
+          if(isset($_GET['p_id'])) {
+            $post_id_edit = $_GET['p_id'];
+            echo "<li><a href='admin/posts.php?source=edit-post&p_id={$post_id_edit}'>Edit Post</a></li>";
+          }
+          ?>
         <?php } ?>
-
-        <!-- <li>
-          <a href="#">Services</a>
-        </li>
-        <li>
-          <a href="#">Contact</a>
-        </li> -->
       </ul>
     </div>
     <!-- /.navbar-collapse -->

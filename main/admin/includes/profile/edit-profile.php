@@ -56,12 +56,12 @@ if(isset($_POST['update_profile'])) {
 ?>
     <form action="" method="post" enctype="multipart/form-data">
       <div class="form-group">
-        <label for="user_name">Username</label>
+        <label class="form-label" for="user_name">Username</label>
         <input type="text" class="form-control" name="user_name" value="<?php echo $user_name; ?>">
       </div>
 
       <div class="form-group">
-        <label for="user_firstname">First Name</label>
+        <label class="form label" for="user_firstname">First Name</label>
         <input type="text" class="form-control" name="user_firstname" value="<?php echo $user_firstname; ?>">
       </div>
 
@@ -71,25 +71,25 @@ if(isset($_POST['update_profile'])) {
       </div>
 
       <div class="form-group">
-        <label for="user_email">Email</label>
+        <label class="form-label" for="user_email">Email</label>
         <input type="email" class="form-control" name="user_email" value="<?php echo $user_email; ?>">
       </div>
 
       <div class="form-group">
-        <label for="user_email">Password</label>
+        <label class="form-label" for="user_email">Password</label>
         <input type="password" class="form-control" name="user_password" value="<?php echo $user_password; ?>">
       </div>
 
       <div class="form-group">
-        <label for="user_role">Role</label>
-        <input type="text" name="user_role" readonly="readonly" value="<?php echo $user_role; ?>">
+        <label class="form-label" for="user_role">Role</label>
+        <input class="form-control" type="text" name="user_role" readonly="readonly" value="<?php echo $user_role; ?>">
       </div>
 
       <div class="form-group">
-        <label for="old_image">Existing Profile Image</label>
+        <label class="form-label" for="old_image">Existing Profile Image</label>
         <img class="img-responsive" src="../images/profile/<?php echo $user_image; ?>" name="old_image">
         <label for="user_image">Select Profile Image</label>
-        <input type="file" class="form-control" name="user_image">
+        <input type="file" name="user_image">
       </div>
 
       <div class="form-group">

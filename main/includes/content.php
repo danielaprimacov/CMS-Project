@@ -21,22 +21,16 @@
 
                 if (strtolower($post_status) == 'published') {
             ?>
-
-                    <h1 class="page-header">
-                        Page Heading
-                        <small>Secondary Text</small>
-                    </h1>
-
-                    <!-- First Blog Post -->
-                    <h2>
+                    <!-- Blog Post -->
+                    <h1>
                         <a href="post.php?p_id=<?php echo $post_id; ?>"><?php echo $post_title; ?></a>
-                    </h2>
+                    </h1>
                     <p class="lead">
                         by <a href="index.php"><?php echo $post_author; ?></a>
                     </p>
                     <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $post_date; ?></p>
                     <hr>
-                    <img class="img-responsive" src="./images/<?php echo $post_img; ?>" alt="Post image">
+                    <a href="post.php?p_id=<?php echo $post_id; ?>"><img class="img-responsive" src="./images/<?php echo $post_img; ?>" alt="Post image"></a>
                     <hr>
                     <p><?php echo $post_content . " ..."; ?></p>
                     <a class="btn btn-primary" href="post.php?p_id=<?php echo $post_id; ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>

@@ -51,7 +51,7 @@ if (isset($_POST['update_post'])) {
   if (!$editQuery) {
     die("Query failed!" . mysqli_error($connection));
   } else {
-    echo "<div class='alert alert-success' role='alert'>Post Successfully Updated!</div>";
+    echo "<div class='alert alert-success' role='alert'>Post Successfully Updated! <a href='../post.php?p_id={$the_post_id}'>View Post</a></div>";
   }
 }
 ?>

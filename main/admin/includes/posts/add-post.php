@@ -22,7 +22,7 @@ if (isset($_POST['add_post'])) {
   if(!$createPost) {
     die("Query failed!" . mysqli_error($connection));
   } else {
-    echo "<div class='alert alert-success' role='alert'>Post Successfully Added!</div>";
+    echo "<div class='alert alert-success' role='alert'>Post Successfully Added! <a href='../posts.php'>View All Posts</a></div>";
   }
 }
 ?>
