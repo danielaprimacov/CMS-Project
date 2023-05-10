@@ -24,14 +24,14 @@ if (isset($_POST['checkBoxArray'])) {
           die("Query failed!" . mysqli_error($connection));
         }
         break;
-      case 'Publish':
+      case 'Published':
         $query = "UPDATE posts SET post_status = '{$bulk_options}' WHERE post_id = $checkboxElement";
         $publishQuery = mysqli_query($connection, $query);
         if(!$publishQuery) {
           die("Query failed!" . mysqli_error($connection));
         }
         break;
-      case 'delete':
+      case 'Delete':
         $query = "DELETE FROM posts WHERE post_id = $checkboxElement";
         $deleteQuery = mysqli_query($connection, $query);
         if(!$deleteQuery) {
@@ -65,7 +65,7 @@ if (isset($_POST['checkBoxArray'])) {
 
     <thead>
       <tr>
-        <th><input class="checkBoxes" type="checkbox"></th>
+        <th><input id="selectAllBoxes" type="checkbox"></th>
         <th>Id</th>
         <th>Author</th>
         <th>Title</th>
@@ -99,7 +99,7 @@ if (isset($_POST['checkBoxArray'])) {
         $post_date = $row['post_date'];
       ?>
         <tr>
-          <td><input type="checkbox" id="selectAllBoxes" name="checkBoxArray[]" value="<?php echo $post_id; ?>"></td>
+          <td><input class="checkBoxes" type="checkbox" name="checkBoxArray[]" value="<?php echo $post_id; ?>"></td>
           <td><?php echo $post_id; ?></td>
           <td><?php echo $post_author; ?></td>
           <td><?php echo $post_title; ?></td>
