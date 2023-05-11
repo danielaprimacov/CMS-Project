@@ -47,6 +47,8 @@
                 $db_user_lastname = $row['user_lastname'];
                 $db_user_role = $row['user_role'];
 
+                $user_password = crypt($user_password, $db_user_password);
+
                 if ($user_password !== $db_user_password) {
                     $message = "<div class='alert alert-danger' role='alert'>Password is not correct!</div>";
                 } elseif (($user_name === $db_user_name) && ($user_password === $db_user_password)) {
@@ -57,9 +59,15 @@
                     $_SESSION['user_role'] = $db_user_role;
 
                     $message = '';
-                    echo "<script type='text/javascript'>
-                    window.location = 'http://localhost:8080/CMS-Project/main/main/admin/index.php'
-                    </script>";
+                    if (strtolower($_SESSION['user_role']) == 'admin') {
+                        echo "<script type='text/javascript'>
+                        window.location = 'http://localhost:8080/CMS-Project/main/main/admin/index.php'
+                        </script>";
+                    } else {
+                        echo "<script type='text/javascript'>
+                        window.location = 'http://localhost:8080/CMS-Project/main/main/index.php' 
+                        </script>";
+                    }
                 }
             }
         }

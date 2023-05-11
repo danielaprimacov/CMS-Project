@@ -43,7 +43,17 @@ if (isset($_POST['add_user'])) {
     }
   }
 
-  $query = "UPDATE users SET user_name = '{$user_name}', user_firstname = '{$user_firstname}', user_lastname = '{$user_lastname}', user_email = '{$user_email}', user_password = '{$user_password}', user_role = '{$user_role}', user_image = '{$user_image}' WHERE user_id = {$the_user_id}";
+  $query = "SELECT randSalt FROM users";
+  $selectSalt = mysqli_query($connection, $query);
+  if(!$selectSalt) {
+    die("Query failed!" . mysqli_error($connection));
+  }
+
+  $row = mysqli_fetch_array($selectSalt);
+  $randSalt = $row['randSalt'];
+  $hashed_password = crypt($user_password, $randSalt);
+
+  $query = "UPDATE users SET user_name = '{$user_name}', user_firstname = '{$user_firstname}', user_lastname = '{$user_lastname}', user_email = '{$user_email}', user_password = '{$hashed_password}', user_role = '{$user_role}', user_image = '{$user_image}' WHERE user_id = {$the_user_id}";
 
   $editQuery = mysqli_query($connection, $query);
   if (!$editQuery) {
