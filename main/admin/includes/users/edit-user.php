@@ -45,7 +45,7 @@ if (isset($_POST['add_user'])) {
 
   $query = "SELECT randSalt FROM users";
   $selectSalt = mysqli_query($connection, $query);
-  if(!$selectSalt) {
+  if (!$selectSalt) {
     die("Query failed!" . mysqli_error($connection));
   }
 
@@ -94,8 +94,9 @@ if (isset($_POST['add_user'])) {
   <div class="form-group">
     <label class="form-label" for="user_role">User Role</label>
     <select class="form-control" name="user_role">
+      <option value="<?php echo $user_role; ?>"><?php echo $user_role; ?></option>
       <?php
-      if(strtolower($user_role) == 'admin') {
+      if (strtolower($user_role) == 'admin') {
         echo "<option value='User'>User</option>";
       } else {
         echo "<option value='Admin'>Admin</option>";

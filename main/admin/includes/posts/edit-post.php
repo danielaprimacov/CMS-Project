@@ -71,6 +71,19 @@ if (isset($_POST['update_post'])) {
   <div class="form-group">
     <label class="form-label" for="post_category">Post Category </label>
     <select class="form-control" name="post_category" id="post_cat">
+      <option value="<?php echo $post_category_id?>">
+      <?php
+      $query = "SELECT cat_title FROM categories WHERE cat_id = {$post_category_id}";
+      $selectTitle = mysqli_query($connection, $query);
+      if(!$selectTitle) {
+        die("Query failed!" . mysqli_error($connection));
+      } else {
+        $row = mysqli_fetch_array($selectTitle);
+        $cat_title = $row['cat_title'];
+        echo $cat_title;
+      }
+      ?>
+      </option>
       <?php
       $query = "SELECT * FROM categories";
       $selectCategories = mysqli_query($connection, $query);
