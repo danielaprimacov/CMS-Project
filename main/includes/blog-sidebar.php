@@ -77,6 +77,7 @@
             </div>
             <span class="form-group">
                 <button name="login" class="btn btn-success" type="submit">Login</button>
+                <span>Don't have a profile? Then </span><a href="registration.php">Register</a>
             </span>
         </form> <!--search form-->
         <!-- /.input-group -->

@@ -9,6 +9,14 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
+  <style>
+    body {
+      height: 100vh;
+      background-size: cover;
+      background-position: center;
+    }
+  </style>
+
   <title>Blog Home</title>
 
   <!-- Bootstrap Core CSS -->
