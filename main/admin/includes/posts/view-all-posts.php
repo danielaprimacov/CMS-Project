@@ -13,6 +13,22 @@ if (isset($_GET['delete'])) {
 ?>
 
 <?php
+if (isset($_GET['reset'])) {
+  $post_id_reset = mysqli_real_escape_string($connection, $_GET['reset']);
+  $query = "UPDATE posts SET post_view_count = 0 WHERE post_id = {$post_id_reset}";
+  $resetQuery = mysqli_query($connection, $query);
+
+  if (!$resetQuery) {
+    die("Query failed!" . mysqli_error($connection));
+  } else {
+    echo "<script type='text/javascript'>
+          window.location = 'http://localhost:8080/CMS-Project/main/main/admin/posts.php' 
+          </script>";
+  }
+}
+?>
+
+<?php
 if (isset($_POST['checkBoxArray'])) {
   foreach ($_POST['checkBoxArray'] as $checkboxElement) {
     $bulk_options = $_POST['bulk_options'];
@@ -155,7 +171,7 @@ if (isset($_POST['checkBoxArray'])) {
           <td><a href='../post.php?p_id=<?php echo $post_id; ?>'>View</a></td>
           <td><a href='posts.php?source=edit-post&p_id=<?php echo $post_id; ?>'>Edit</a></td>
           <td><a onClick=\"javascript: return confirm('Are you sure you want to delete?'); \" href='posts.php?delete=<?php echo $post_id; ?>'>Delete</a></td>
-          <td><?php echo $post_view_count; ?></td>
+          <td><a href='posts.php?reset=<?php echo $post_id; ?>'><?php echo $post_view_count; ?></a></td>
         </tr>
       <?php } ?>
 
