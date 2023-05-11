@@ -11,3 +11,7 @@ body {
 footer {
     margin: 50px 0;
 }
+
+.page-item li .active_link {
+    background: rgba(118, 74, 219, 0.259) !important;
+}

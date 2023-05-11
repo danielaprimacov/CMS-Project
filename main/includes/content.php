@@ -6,6 +6,30 @@
         <div class="col-md-8">
 
             <?php
+            // Pagination
+            if(isset($_GET['page'])) {
+                $per_page = 5;
+
+                $page = $_GET['page'];
+            } else {
+                $page = "";
+            }
+
+            if($page = "" || $page == 1) {
+                $page_1 = 0;
+            } else {
+                $page_1 = ($page * $per_page) - $per_page;
+            }
+
+            $countPostQuery = "SELECT * FROM posts LIMIT $page_1, $per_page";
+            $countPost = mysqli_query($connection, $countPostQuery);
+            if (!$countPost) {
+                die("Query failed!" . mysqli_error($connection));
+            }
+            $countPosts = mysqli_num_rows($countPost);
+
+            $countPosts = ceil($countPosts / $per_page);
+
 
             $query = "SELECT * FROM posts";
             $selectAllPosts = mysqli_query($connection, $query);
@@ -49,6 +73,24 @@
     <!-- /.row -->
 
     <hr>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <li class="page-item"><a class="page-link" href="#" tabindex="-1">Previous</a></li>
+            <?php
+            for ($i = 1; $i <= $countPosts; $i++) {
+                if ($i == $page) {
+                    echo "<li class='page-item active'><a class='page-link' href='index.php?page={$i}'>{$i}</a></li>";
+                } else {
+                    echo "<li class='page-item'><a class='page-link' href='index.php?page={$i}'>{$i}</a></li>";
+                }
+            }
+            ?>
+            <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
 
     <!-- Footer -->
     <footer>
