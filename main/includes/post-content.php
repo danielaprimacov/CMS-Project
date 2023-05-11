@@ -89,6 +89,9 @@
               die("Query failed!" . mysqli_error($connection));
             }
           }
+          echo "<script type='text/javascript'>
+              window.location = 'http://localhost:8080/CMS-Project/main/main/post.php?p_id={$the_post_id}' 
+              </script>";
         }
         ?>
 

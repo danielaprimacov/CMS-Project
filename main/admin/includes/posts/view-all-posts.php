@@ -22,8 +22,8 @@ if (isset($_GET['reset'])) {
     die("Query failed!" . mysqli_error($connection));
   } else {
     echo "<script type='text/javascript'>
-          window.location = 'http://localhost:8080/CMS-Project/main/main/admin/posts.php' 
-          </script>";
+      window.location = 'http://localhost:8080/CMS-Project/main/main/admin/posts.php' 
+      </script>";
   }
 }
 ?>
