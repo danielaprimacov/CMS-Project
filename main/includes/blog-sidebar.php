@@ -23,9 +23,9 @@
         $user_password = $_POST['user_password'];
 
         if (!$user_name) {
-            echo "<div class='alert alert-danger' role='alert'>Username must be provided!</div>";
+            $message =  "<div class='alert alert-danger' role='alert'>Username must be provided!</div>";
         } elseif (!$user_password) {
-            echo "<div class='alert alert-danger' role='alert'>Password cannot be empty!</div>";
+            $message = "<div class='alert alert-danger' role='alert'>Password cannot be empty!</div>";
         } else {
             $user_name = mysqli_real_escape_string($connection, $user_name);
             $user_password = mysqli_real_escape_string($connection, $user_password);
@@ -48,7 +48,7 @@
                 $db_user_role = $row['user_role'];
 
                 if ($user_password !== $db_user_password) {
-                    echo "<div class='alert alert-danger' role='alert'>Password is not correct!</div>";
+                    $message = "<div class='alert alert-danger' role='alert'>Password is not correct!</div>";
                 } elseif (($user_name === $db_user_name) && ($user_password === $db_user_password)) {
                     $_SESSION['user_id'] = $db_user_id;
                     $_SESSION['user_name'] = $db_user_name;
@@ -56,6 +56,7 @@
                     $_SESSION['user_lastname'] = $db_user_lastname;
                     $_SESSION['user_role'] = $db_user_role;
 
+                    $message = '';
                     echo "<script type='text/javascript'>
                     window.location = 'http://localhost:8080/CMS-Project/main/main/admin/index.php'
                     </script>";
@@ -68,6 +69,9 @@
     <!--Login  -->
     <div class="well">
         <h4>Login</h4>
+        <h6><?php if (isset($_POST['login'])) {
+                echo $message;
+            } ?></h6>
         <form action="" method="post">
             <div class="form-group">
                 <input name="user_name" type="text" class="form-control" placeholder="Username">

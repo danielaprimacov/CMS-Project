@@ -5,23 +5,44 @@
 <?php include "includes/navigation.php"; ?>
 
 <?php
-if(isset($_POST['submit'])) {
+if (isset($_POST['submit'])) {
   $username = $_POST['username'];
   $email = $_POST['email'];
   $password = $_POST['password'];
 
-  $username = mysqli_real_escape_string($connection, $username);
-  $email = mysqli_real_escape_string($connection, $email);
-  $password = mysqli_real_escape_string($connection, $password);
+  if (!$username) {
+    $message = "<div class='alert alert-danger' role='alert'>Must provide username!</div>";
+  } elseif (!$email) {
+    $message = "<div class='alert alert-danger' role='alert'>Must provide E-mail!</div>";
+  } elseif (!$password) {
+    $message = "<div class='alert alert-danger' role='alert'>Must provide password!</div>";
+  } else {
+    $username = mysqli_real_escape_string($connection, $username);
+    $email = mysqli_real_escape_string($connection, $email);
+    $password = mysqli_real_escape_string($connection, $password);
 
-  $query = "SELECT randSalt FROM users";
-  $randSaltQuery = mysqli_query($connection, $query);
-  if(!$randSaltQuery) {
-    die("Query failed!" . mysqli_error($connection));
-  }
+    $query = "SELECT randSalt FROM users";
+    $randSaltQuery = mysqli_query($connection, $query);
+    if (!$randSaltQuery) {
+      die("Query failed!" . mysqli_error($connection));
+    }
 
-  while($row = mysqli_fetch_array($randSaltQuery)) {
+    $row = mysqli_fetch_array($randSaltQuery);
     $randSalt = $row['randSalt'];
+
+    $password = crypt($password, $randSalt);
+
+    $query = "INSERT INTO users (user_name, user_email, user_password, user_role) VALUES ('{$username}', '{$email}', '{$password}', 'User')";
+    $registrationQuery = mysqli_query($connection, $query);
+
+    if (!$registrationQuery) {
+      die("Query failed!" . mysqli_error($connection));
+    } else {
+      $message = '';
+      echo "<script type='text/javascript'>
+          window.location = 'http://localhost:8080/CMS-Project/main/main/index.php'
+          </script>";
+    }
   }
 }
 ?>
