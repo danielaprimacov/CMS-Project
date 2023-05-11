@@ -38,8 +38,34 @@ if (isset($_POST['checkBoxArray'])) {
           die("Query failed!" . mysqli_error($connection));
         }
         break;
-      default:
-        echo '';
+      case 'Clone':
+        $query = "SELECT * FROM posts WHERE post_id = '{$checkboxElement}'";
+        $selectPost = mysqli_query($connection, $query);
+        if (!$selectPost) {
+          die("Query failed!" . mysqli_error($connection));
+        }
+
+        while ($row = mysqli_fetch_assoc($selectPost)) {
+          $post_author = mysqli_real_escape_string($connection, $row['post_author']);
+          $post_content = mysqli_real_escape_string($connection, $row['post_content']);
+          $post_title = mysqli_real_escape_string($connection, $row['post_title']);
+          $post_id = $row['post_id'];
+          $post_category_id = $row['post_category_id'];
+          $post_status = $row['post_status'];
+          $post_img = $row['post_img'];
+          $post_tags = $row['post_tags'];
+          $post_date = $row['post_date'];
+        }
+
+        $query = "INSERT INTO posts(post_category_id, post_title, post_author, post_date, post_img, post_content, post_tags, post_status) ";
+        $query .= "VALUES({$post_category_id}, '{$post_title}','{$post_author}', now(), '{$post_img}', '{$post_content}', '{$post_tags}', '{$post_status}')";
+
+        $insertClone = mysqli_query($connection, $query);
+        if (!$insertClone) {
+          die("Query failed!" . mysqli_error($connection));
+        } else {
+          echo "<div class='alert alert-success' role='alert'>Clone Added!</div>";
+        }
         break;
     }
   }
@@ -55,6 +81,7 @@ if (isset($_POST['checkBoxArray'])) {
         <option value="Default">Choose...</option>
         <option value="Published">Publish</option>
         <option value="Draft">Draft</option>
+        <option value="Clone">Clone</option>
         <option value="Delete">Delete</option>
       </select>
     </div>
@@ -84,7 +111,7 @@ if (isset($_POST['checkBoxArray'])) {
     <tbody>
       <?php
 
-      $query = "SELECT * FROM posts";
+      $query = "SELECT * FROM posts ORDER BY post_id DESC";
       $selectAllPosts = mysqli_query($connection, $query);
 
       while ($row = mysqli_fetch_assoc($selectAllPosts)) {
