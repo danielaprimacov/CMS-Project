@@ -8,12 +8,13 @@
       <span class="icon-bar"></span>
     </button>
     <!-- <a class="navbar-brand" href="#">Users Online: <?php usersOnline(); ?></a> -->
-    <a class="navbar-brand" href="#">Users Online: <span class="usersOnline"></span></a>
     <a class="navbar-brand" href="index.php">Admin</a>
   </div>
   <!-- Top Menu Items -->
   <ul class="nav navbar-right top-nav">
     <li><a href="../index.php">Go back</a></li>
+    <li><a href="#">Users Online: <span class="usersOnline"></span></a></li>
+
     <li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $_SESSION['user_firstname'] . " " . $_SESSION['user_lastname']; ?> <b class="caret"></b></a>
       <ul class="dropdown-menu">
