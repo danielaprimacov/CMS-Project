@@ -83,11 +83,12 @@
               echo "<div class='alert alert-success' role='alert'>Comment Successfully Sent!</div>";
             }
 
-            $query = "UPDATE posts SET post_comments_count = post_comments_count + 1 WHERE post_id = $the_post_id";
-            $addCommentCount = mysqli_query($connection, $query);
-            if (!$addCommentCount) {
-              die("Query failed!" . mysqli_error($connection));
-            }
+            
+            // $query = "UPDATE posts SET post_comments_count = post_comments_count + 1 WHERE post_id = $the_post_id";
+            // $addCommentCount = mysqli_query($connection, $query);
+            // if (!$addCommentCount) {
+            //   die("Query failed!" . mysqli_error($connection));
+            // }
           }
           echo "<script type='text/javascript'>
               window.location = 'http://localhost:8080/CMS-Project/main/main/post.php?p_id={$the_post_id}' 

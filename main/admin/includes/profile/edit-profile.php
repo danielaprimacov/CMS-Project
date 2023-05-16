@@ -77,12 +77,7 @@ if(isset($_POST['update_profile'])) {
 
       <div class="form-group">
         <label class="form-label" for="user_email">Password</label>
-        <input type="password" class="form-control" name="user_password" value="<?php echo $user_password; ?>">
-      </div>
-
-      <div class="form-group">
-        <label class="form-label" for="user_role">Role</label>
-        <input class="form-control" type="text" name="user_role" readonly="readonly" value="<?php echo $user_role; ?>">
+        <input type="password" class="form-control" name="user_password" autocomplete="off">
       </div>
 
       <div class="form-group">

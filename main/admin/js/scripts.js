@@ -24,3 +24,16 @@ $("#load-screen")
   .fadeOut(600, function () {
     $(this).remove();
   });
+
+
+function loadUsersOnline() {
+  $.get("functions.php?onlineusers=result", function (data) {
+    $(".usersOnline").text(data);
+  });
+}
+
+setInterval(() => {
+  loadUsersOnline();
+}, 500);
+
+loadUsersOnline();

@@ -7,6 +7,8 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
+    <!-- <a class="navbar-brand" href="#">Users Online: <?php usersOnline(); ?></a> -->
+    <a class="navbar-brand" href="#">Users Online: <span class="usersOnline"></span></a>
     <a class="navbar-brand" href="index.php">Admin</a>
   </div>
   <!-- Top Menu Items -->

@@ -61,6 +61,10 @@ if (isset($_POST['add_user'])) {
   } else {
     echo "<div class='alert alert-success' role='alert'>User Successfully Updated!</div>";
   }
+} else {
+  echo "<script type='text/javascript'>
+        window.location = 'http://localhost:8080/CMS-Project/main/main/admin/index.php'
+        </script>";
 }
 ?>
 
@@ -88,7 +92,7 @@ if (isset($_POST['add_user'])) {
 
   <div class="form-group">
     <label class="form-label" for="user_email">Enter Password</label>
-    <input type="password" class="form-control" name="user_password" value="<?php echo $user_password; ?>">
+    <input type="password" class="form-control" name="user_password" autocomplete="off">
   </div>
 
   <div class="form-group">
