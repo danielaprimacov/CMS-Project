@@ -32,8 +32,6 @@ function loadUsersOnline() {
   });
 }
 
-setInterval(() => {
+setInterval(function() {
   loadUsersOnline();
 }, 500);
-
-loadUsersOnline();

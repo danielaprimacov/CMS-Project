@@ -59,7 +59,7 @@ if (isset($_GET['approve'])) {
   <tbody>
     <?php
 
-    $getPostId = mysqli_real_escape_string($_GET['id']);
+    $getPostId = mysqli_real_escape_string($connection, $_GET['id']);
     $query = "SELECT * FROM comments WHERE comment_post_id = $getPostId";
     $selectAllComments = mysqli_query($connection, $query);
 
