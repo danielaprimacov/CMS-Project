@@ -65,7 +65,7 @@
                         </script>";
                     } else {
                         echo "<script type='text/javascript'>
-                        window.location = 'http://localhost:8080/CMS-Project/main/main/index.php' 
+                        window.location = 'http://localhost:8080/CMS-Project/main/main/index.php?page=1' 
                         </script>";
                     }
                 }
