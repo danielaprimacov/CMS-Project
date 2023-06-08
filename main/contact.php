@@ -7,7 +7,7 @@
 <?php
 if (isset($_POST['submit'])) {
   $to = "example@support.com";
-  $from = $_POST['email'];
+  $from = "From: " . $_POST['email'];
   $subject = $_POST['subject'];
   // message
   $body = $_POST['body'];    
