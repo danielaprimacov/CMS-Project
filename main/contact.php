@@ -6,44 +6,18 @@
 
 <?php
 if (isset($_POST['submit'])) {
-  $username = $_POST['username'];
-  $email = $_POST['email'];
-  $password = $_POST['password'];
+  $to = "example@support.com";
+  $from = $_POST['email'];
+  $subject = $_POST['subject'];
+  // message
+  $body = $_POST['body'];    
 
-  if (!$username) {
-    $message = "<div class='alert alert-danger' role='alert'>Must provide username!</div>";
-  } elseif (!$email) {
-    $message = "<div class='alert alert-danger' role='alert'>Must provide E-mail!</div>";
-  } elseif (!$password) {
-    $message = "<div class='alert alert-danger' role='alert'>Must provide password!</div>";
-  } else {
-    $username = mysqli_real_escape_string($connection, $username);
-    $email = mysqli_real_escape_string($connection, $email);
-    $password = mysqli_real_escape_string($connection, $password);
+  // use wordwrap() if lines are longer than 70 characters
+  $subject = wordwrap($subject, 70);
+  $body = wordwrap($body, 70);
 
-    $query = "SELECT randSalt FROM users";
-    $randSaltQuery = mysqli_query($connection, $query);
-    if (!$randSaltQuery) {
-      die("Query failed!" . mysqli_error($connection));
-    }
-
-    $row = mysqli_fetch_array($randSaltQuery);
-    $randSalt = $row['randSalt'];
-
-    $password = crypt($password, $randSalt);
-
-    $query = "INSERT INTO users (user_name, user_email, user_password, user_role) VALUES ('{$username}', '{$email}', '{$password}', 'User')";
-    $registrationQuery = mysqli_query($connection, $query);
-
-    if (!$registrationQuery) {
-      die("Query failed!" . mysqli_error($connection));
-    } else {
-      $message = '';
-      echo "<script type='text/javascript'>
-          window.location = 'http://localhost:8080/CMS-Project/main/main/index.php'
-          </script>";
-    }
-  }
+  // send email
+  mail($to, $subject, $body, $from);
 }
 ?>
 
