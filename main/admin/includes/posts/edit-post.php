@@ -103,10 +103,32 @@ if (isset($_POST['update_post'])) {
   </div>
 
   <div class="form-group">
-    <label class="form-label" for="post_author">Post Author</label>
-    <input type="text" class="form-control" name="post_author" value="<?php echo $post_author; ?>">
-  </div>
+    <label class="form-label" for="post_author">Post Author </label>
+    <select class="form-control" name="post_author" id="post_author">
+      <option selected>Choose author...</option>
+      <?php
+      $query = "SELECT * FROM users";
+      $selectUsers = mysqli_query($connection, $query);
 
+      if (!$selectUsers) {
+        die("Query failed!" . mysqli_error($connection));
+      }
+
+      while ($row = mysqli_fetch_assoc($selectUsers)) {
+        $user_id = $row['user_id'];
+        $username = $row['user_name'];
+        $user_lastname = $row['user_lastname'];
+        $user_firstname = $row['user_firstname'];
+
+        if(!empty($user_firstname && $user_lastname)) {
+          echo "<option value='{$username}'>$user_lastname $user_firstname</option>";
+        } else {
+          echo "<option value='{$username}'>$username</option>";
+        }
+      }
+      ?>
+    </select>
+  </div>
   <div class="form-group">
     <label class="form-label" for="post_status">Post Status</label>
     <select class="form-control" name="post_status" id="post_status">
