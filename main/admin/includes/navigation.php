@@ -12,7 +12,7 @@
   </div>
   <!-- Top Menu Items -->
   <ul class="nav navbar-right top-nav">
-    <li><a href="../index.php">Go back</a></li>
+    <li><a href="../index.php?page=1">Go back</a></li>
     <li><a href="#">Users Online: <span class="usersOnline"></span></a></li>
 
     <li class="dropdown">
