@@ -105,7 +105,7 @@ if (isset($_POST['update_post'])) {
   <div class="form-group">
     <label class="form-label" for="post_author">Post Author </label>
     <select class="form-control" name="post_author" id="post_author">
-      <option selected>Choose author...</option>
+      <?php echo "<option selected value='{$post_author}'>$post_author</option>"?>
       <?php
       $query = "SELECT * FROM users";
       $selectUsers = mysqli_query($connection, $query);
@@ -120,7 +120,7 @@ if (isset($_POST['update_post'])) {
         $user_lastname = $row['user_lastname'];
         $user_firstname = $row['user_firstname'];
 
-        if(!empty($user_firstname && $user_lastname)) {
+        if(!empty($user_firstname) && !empty($user_lastname)) {
           echo "<option value='{$username}'>$user_lastname $user_firstname</option>";
         } else {
           echo "<option value='{$username}'>$username</option>";
