@@ -63,7 +63,7 @@ if (isset($_POST['add_post'])) {
   </div>
 
   <div class="form-group">
-    <label class="form-label" for="post_cat">Post Author </label>
+    <label class="form-label" for="post_author">Post Author </label>
     <select class="form-control" name="post_author" id="post_author">
       <option selected>Choose author...</option>
       <?php

@@ -134,6 +134,7 @@ if (isset($_POST['checkBoxArray'])) {
       while ($row = mysqli_fetch_assoc($selectAllPosts)) {
         $post_id = $row['post_id'];
         $post_author = $row['post_author'];
+        $post_user = $row['post_user'];
         $post_content = $row['post_content'];
         $post_title = $row['post_title'];
         $post_category_id = $row['post_category_id'];
@@ -147,7 +148,15 @@ if (isset($_POST['checkBoxArray'])) {
         <tr>
           <td><input class="checkBoxes" type="checkbox" name="checkBoxArray[]" value="<?php echo $post_id; ?>"></td>
           <td><?php echo $post_id; ?></td>
-          <td><?php echo $post_author; ?></td>
+
+          
+          <td><?php 
+          if(isset($post_author) || !empty($post_author)) {
+            echo $post_author; 
+          } elseif(isset($post_user) || !empty($post_user)) {
+            echo $post_user;
+          }
+          ?></td>
           <td><?php echo $post_title; ?></td>
           <td><?php echo $post_content; ?></td>
 
