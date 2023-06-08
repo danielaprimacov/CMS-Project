@@ -43,7 +43,7 @@ if (isset($_POST['add_post'])) {
   <div class="form-group">
     <label class="form-label" for="post_cat">Post Category </label>
     <select class="form-control" name="post_cat" id="post_cat">
-      <option selected>Choose...</option>
+      <option selected>Choose category...</option>
       <?php
       $query = "SELECT * FROM categories";
       $selectCategories = mysqli_query($connection, $query);
@@ -63,14 +63,31 @@ if (isset($_POST['add_post'])) {
   </div>
 
   <div class="form-group">
-    <label class="form-label" for="post_author">Post Author</label>
-    <input type="text" class="form-control" name="post_author">
+    <label class="form-label" for="post_cat">Post Author </label>
+    <select class="form-control" name="post_author" id="post_author">
+      <option selected>Choose author...</option>
+      <?php
+      $query = "SELECT * FROM users";
+      $selectUsers = mysqli_query($connection, $query);
+
+      if (!$selectUsers) {
+        die("Query failed!" . mysqli_error($connection));
+      }
+
+      while ($row = mysqli_fetch_assoc($selectUsers)) {
+        $user_id = $row['user_id'];
+        $username = $row['user_name'];
+
+        echo "<option value='$user_id'>$username</option>";
+      }
+      ?>
+    </select>
   </div>
 
   <div class="form-group">
     <label class="form-label" for="post_status">Post Status</label>
     <select class="form-control" name="post_status">
-      <option value="Default">Choose...</option>
+      <option value="Default">Choose status...</option>
       <option value="Draft">Draft</option>
       <option value="Published">Published</option>
     </select>
