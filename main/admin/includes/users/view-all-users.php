@@ -1,13 +1,17 @@
 <?php
 if (isset($_GET['delete'])) {
-  $user_id_delete = $_GET['delete'];
-  $query = "DELETE FROM users WHERE user_id = {$user_id_delete}";
-  $deleteQuery = mysqli_query($connection, $query);
+  if (isset($_SESSION['user_role'])) {
+    if (strtolower($_SESSION['user_role']) == 'admin') {
+      $user_id_delete = mysqli_real_escape_string($connection, $_GET['delete']);
+      $query = "DELETE FROM users WHERE user_id = {$user_id_delete}";
+      $deleteQuery = mysqli_query($connection, $query);
 
-  if (!$deleteQuery) {
-    die("Query failed!" . mysqli_error($connection));
-  } else {
-    echo "<div class='alert alert-success' role='alert'>User Successfully Deleted!</div>";
+      if (!$deleteQuery) {
+        die("Query failed!" . mysqli_error($connection));
+      } else {
+        echo "<div class='alert alert-success' role='alert'>User Successfully Deleted!</div>";
+      }
+    }
   }
 }
 ?>
