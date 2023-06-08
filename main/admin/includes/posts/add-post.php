@@ -78,7 +78,7 @@ if (isset($_POST['add_post'])) {
         $user_id = $row['user_id'];
         $username = $row['user_name'];
 
-        echo "<option value='$user_id'>$username</option>";
+        echo "<option value='{$username}'>$username</option>";
       }
       ?>
     </select>

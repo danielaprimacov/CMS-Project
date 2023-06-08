@@ -151,9 +151,9 @@ if (isset($_POST['checkBoxArray'])) {
 
           
           <td><?php 
-          if(isset($post_author) || !empty($post_author)) {
+          if(!empty($post_author)) {
             echo $post_author; 
-          } elseif(isset($post_user) || !empty($post_user)) {
+          } elseif(!empty($post_user)) {
             echo $post_user;
           }
           ?></td>
