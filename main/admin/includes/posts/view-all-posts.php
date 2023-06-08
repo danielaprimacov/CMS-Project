@@ -1,3 +1,4 @@
+<?php include "/xampp/htdocs/CMS-Project/main/main/admin/includes/delete-modal.php"; ?>
 <?php
 if (isset($_GET['delete'])) {
   $post_id_delete = $_GET['delete'];
@@ -149,14 +150,14 @@ if (isset($_POST['checkBoxArray'])) {
           <td><input class="checkBoxes" type="checkbox" name="checkBoxArray[]" value="<?php echo $post_id; ?>"></td>
           <td><?php echo $post_id; ?></td>
 
-          
-          <td><?php 
-          if(!empty($post_author)) {
-            echo $post_author; 
-          } elseif(!empty($post_user)) {
-            echo $post_user;
-          }
-          ?></td>
+
+          <td><?php
+              if (!empty($post_author)) {
+                echo $post_author;
+              } elseif (!empty($post_user)) {
+                echo $post_user;
+              }
+              ?></td>
           <td><?php echo $post_title; ?></td>
           <td><?php echo $post_content; ?></td>
 
@@ -197,7 +198,7 @@ if (isset($_POST['checkBoxArray'])) {
           <td><?php echo $post_date; ?></td>
           <td><a href='../post.php?p_id=<?php echo $post_id; ?>'>View</a></td>
           <td><a href='posts.php?source=edit-post&p_id=<?php echo $post_id; ?>'>Edit</a></td>
-          <td><a onClick=\"javascript: return confirm('Are you sure you want to delete?'); \" href='posts.php?delete=<?php echo $post_id; ?>'>Delete</a></td>
+          <td><a class="delete_link" rel="<?php echo $post_id; ?>" href='javascript:void(0)'>Delete</a></td>
           <td><a href='posts.php?reset=<?php echo $post_id; ?>'><?php echo $post_view_count; ?></a></td>
         </tr>
       <?php } ?>
@@ -205,3 +206,16 @@ if (isset($_POST['checkBoxArray'])) {
     </tbody>
   </table>
 </form>
+
+<script>
+  $(document).ready(function() {
+    $(".delete_link").on('click', function() {
+      var id = $(this).attr("rel");
+      var delete_url = "posts.php?delete="+ id +" ";
+
+      $(".modal-delete-link").attr("href", delete_url);      
+
+      $("#staticBackdrop").modal('show');
+    });
+  });
+</script>
