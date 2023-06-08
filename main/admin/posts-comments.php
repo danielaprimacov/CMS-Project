@@ -120,9 +120,9 @@
                 <?php } ?>
 
 
-                <td><a href='comments.php?approve=<?php echo $comment_id; ?>'>Approve</a></td>
-                <td><a href='comments.php?unapprove=<?php echo $comment_id; ?>'>Unapprove</a></td>
-                <td><a href='comments.php?delete=<?php echo $comment_id; ?>'>Delete</a></td>
+                <td><a href='post-comments.php?approve=<?php echo $comment_id; ?>'>Approve</a></td>
+                <td><a href='post-comments.php?unapprove=<?php echo $comment_id; ?>'>Unapprove</a></td>
+                <td><a href='post-comments.php?delete=<?php echo $comment_id; ?>&id=" <?php $_GET['id'] ?> "'>Delete</a></td>
               </tr>
             <?php } ?>
           </tbody>
