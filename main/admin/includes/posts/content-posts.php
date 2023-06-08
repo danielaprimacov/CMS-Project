@@ -2,7 +2,7 @@
   <div class="col-lg-12">
     <h1 class="page-header">
       Posts
-      <small>Author</small>
+      <small><?php echo $_SESSION['user_name']; ?></small>
     </h1>
 
     <?php

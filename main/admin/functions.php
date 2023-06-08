@@ -5,6 +5,12 @@ function escape($string) {
   mysqli_real_escape_string($connection, trim($string));
 }
 
+function redirectToAnotherPage($where) {
+  echo "<script type='text/javascript'>
+      window.location = 'http://localhost:8080/CMS-Project/main/main/admin/$where' 
+      </script>";
+}
+
 function usersOnline()
 {
   if (isset($_GET['onlineusers'])) {

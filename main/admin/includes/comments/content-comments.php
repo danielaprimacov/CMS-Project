@@ -1,8 +1,8 @@
 <div class="row">
   <div class="col-lg-12">
     <h1 class="page-header">
-      Posts
-      <small>Author</small>
+      Comments
+      <small><?php echo $_SESSION['user_name'];?></small>
     </h1>
 
     <?php
@@ -14,10 +14,10 @@
     }
 
     switch ($source) {
-      case 'add-post':
+      case '1':
         echo "";
         break;
-      case 'edit-post':
+      case '2':
         echo "";
         break;
       case '3':
