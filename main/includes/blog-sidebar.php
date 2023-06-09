@@ -60,13 +60,9 @@
 
                     $message = '';
                     if (strtolower($_SESSION['user_role']) == 'admin') {
-                        echo "<script type='text/javascript'>
-                        window.location = 'http://localhost:8080/CMS-Project/main/main/admin/index.php'
-                        </script>";
+                        redirectToAnotherPage("admin/index.php");
                     } else {
-                        echo "<script type='text/javascript'>
-                        window.location = 'http://localhost:8080/CMS-Project/main/main/index.php?page=1' 
-                        </script>";
+                        redirectToAnotherPage("index.php?page=1");
                     }
                 }
             }
@@ -76,23 +72,30 @@
 
     <!--Login  -->
     <div class="well">
-        <h4>Login</h4>
-        <h6><?php if (isset($_POST['login'])) {
-                echo $message;
-            } ?></h6>
-        <form action="" method="post">
-            <div class="form-group">
-                <input name="user_name" type="text" class="form-control" placeholder="Username">
-            </div>
-            <div class="form-group">
-                <input class="form-control" type="password" name="user_password" placeholder="Password">
-            </div>
-            <span class="form-group">
-                <button name="login" class="btn btn-success" type="submit">Login</button>
-                <span>Don't have a profile? Then </span><a href="registration.php">Register</a>
-            </span>
-        </form> <!--search form-->
-        <!-- /.input-group -->
+        <?php if (isset($_SESSION['user_role'])) : ?>
+            <h4>Logged in as <a href="admin/profile.php"><?php echo $_SESSION['user_name']; ?></a></h4>
+            <a href="includes/logout.php"><button class="btn btn-success">Logout</button></a>
+        <?php elseif(isset($_SESSION['user_role']) && strtolower($_SESSION['user_role']) == 'admin') : ?>
+            <h4>Logged in as <a href="user-profile.php"><?php echo $_SESSION['user_name']; ?></a></h4>
+        <?php else : ?>
+            <h4>Login</h4>
+            <h6><?php if (isset($_POST['login'])) {
+                    echo $message;
+                } ?></h6>
+            <form action="" method="post">
+                <div class="form-group">
+                    <input name="user_name" type="text" class="form-control" placeholder="Username">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="password" name="user_password" placeholder="Password">
+                </div>
+                <span class="form-group">
+                    <button name="login" class="btn btn-success" type="submit">Login</button>
+                    <span>Don't have a profile? Then </span><a href="registration.php">Register</a>
+                </span>
+            </form> <!--search form-->
+            <!-- /.input-group -->
+        <?php endif; ?>
     </div>
 
     <!-- Blog Categories Well -->

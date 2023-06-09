@@ -23,9 +23,7 @@ if (isset($_POST['submit'])) {
 
     $query = "SELECT randSalt FROM users";
     $randSaltQuery = mysqli_query($connection, $query);
-    if (!$randSaltQuery) {
-      die("Query failed!" . mysqli_error($connection));
-    }
+    checkQuery($randSaltQuery);
 
     $row = mysqli_fetch_array($randSaltQuery);
     $randSalt = $row['randSalt'];
@@ -39,16 +37,11 @@ if (isset($_POST['submit'])) {
       die("Query failed!" . mysqli_error($connection));
     } else {
       $message = '';
-      echo "<script type='text/javascript'>
-          window.location = 'http://localhost:8080/CMS-Project/main/main/index.php'
-          </script>";
+      redirectToAnotherPage("index.php?page=1");
     }
   }
 }
 ?>
-
-
-
 
 <!-- Page Content -->
 <?php include "includes/registration-content.php"; ?>
