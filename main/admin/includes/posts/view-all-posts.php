@@ -35,33 +35,26 @@ if (isset($_POST['checkBoxArray'])) {
       case 'Draft':
         $query = "UPDATE posts SET post_status = '{$bulk_options}' WHERE post_id = $checkboxElement";
         $draftQuery = mysqli_query($connection, $query);
-        if (!$draftQuery) {
-          die("Query failed!" . mysqli_error($connection));
-        }
+        checkQuery($draftQuery);
         break;
       case 'Published':
         $query = "UPDATE posts SET post_status = '{$bulk_options}' WHERE post_id = $checkboxElement";
         $publishQuery = mysqli_query($connection, $query);
-        if (!$publishQuery) {
-          die("Query failed!" . mysqli_error($connection));
-        }
+        checkQuery($publishQuery);
         break;
       case 'Delete':
         $query = "DELETE FROM posts WHERE post_id = $checkboxElement";
         $deleteQuery = mysqli_query($connection, $query);
-        if (!$deleteQuery) {
-          die("Query failed!" . mysqli_error($connection));
-        }
+        checkQuery($deleteQuery);
         break;
       case 'Clone':
         $query = "SELECT * FROM posts WHERE post_id = '{$checkboxElement}'";
         $selectPost = mysqli_query($connection, $query);
-        if (!$selectPost) {
-          die("Query failed!" . mysqli_error($connection));
-        }
+        checkQuery($selectPost);
 
         while ($row = mysqli_fetch_assoc($selectPost)) {
           $post_author = mysqli_real_escape_string($connection, $row['post_author']);
+          $post_user = mysqli_real_escape_string($connection, $row['post_author']);
           $post_content = mysqli_real_escape_string($connection, $row['post_content']);
           $post_title = mysqli_real_escape_string($connection, $row['post_title']);
           $post_id = $row['post_id'];
@@ -178,9 +171,7 @@ if (isset($_POST['checkBoxArray'])) {
           <?php
           $query = "SELECT * FROM comments WHERE comment_post_id = $post_id";
           $countComment = mysqli_query($connection, $query);
-          if (!$countComment) {
-            die("Query failed!" . mysqli_error($connection));
-          }
+          checkQuery($countComment);
 
           $row = mysqli_fetch_array($countComment);
           if (!empty($row)) {
