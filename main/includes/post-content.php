@@ -13,9 +13,7 @@
 
         $view_query = "UPDATE posts SET post_view_count = post_view_count + 1 WHERE post_id = {$the_post_id}";
         $viewQuery = mysqli_query($connection, $view_query);
-        if(!$viewQuery) {
-          die("Query failed!" . mysqli_error($connection));
-        }
+        checkQuery($viewQuery);
 
         $query = "SELECT * FROM posts WHERE post_id = $the_post_id";
         $selectPostById = mysqli_query($connection, $query);
@@ -77,8 +75,8 @@
             $query = "INSERT INTO comments (comment_post_id, comment_author, comment_email, comment_content, comment_status, comment_date) VALUES ({$the_post_id}, '{$comment_author}', '{$comment_email}', '{$comment_content}', 'Unapproved', now())";
 
             $addAllComments = mysqli_query($connection, $query);
-            if (!$addAllComments) {
-              die("Query failed!" . mysqli_error($connection));
+            if(checkQuery($addAllComments)) {
+              echo "";
             } else {
               echo "<div class='alert alert-success' role='alert'>Comment Successfully Sent!</div>";
             }
@@ -90,9 +88,7 @@
             //   die("Query failed!" . mysqli_error($connection));
             // }
           }
-          echo "<script type='text/javascript'>
-              window.location = 'http://localhost:8080/CMS-Project/main/main/post.php?p_id={$the_post_id}' 
-              </script>";
+          redirectToAnotherPage("post.php?p_id={$the_post_id}");
         }
         ?>
 
@@ -147,9 +143,7 @@
           </div>
         <?php } ?>
       <?php } else {
-        echo "<script type='text/javascript'>
-              window.location = 'http://localhost:8080/CMS-Project/main/main/index.php' 
-              </script>";
+        redirectToAnotherPage("index.php?page=1");
       }
       ?>
     </div>
