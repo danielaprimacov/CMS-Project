@@ -141,3 +141,23 @@ function editAdminProfile()
     }
   }
 }
+
+function countRecords($table)
+{
+  global $connection;
+  $query = "SELECT * FROM " . $table;
+  $selectAll = mysqli_query($connection, $query);
+  checkQuery($selectAll);
+  $count = mysqli_num_rows($selectAll);
+  return $count;
+}
+
+function selectByCondition($table, $condition)
+{
+  global $connection;
+  $query = "SELECT * FROM " . $table .  " WHERE " . $condition;
+  $selectByCond = mysqli_query($connection, $query);
+  $count = mysqli_num_rows($selectByCond);
+  checkQuery($selectByCond);
+  return $count;
+}
