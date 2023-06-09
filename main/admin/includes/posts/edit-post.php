@@ -6,9 +6,7 @@ if (isset($_GET['p_id'])) {
 $query = "SELECT * FROM posts WHERE post_id = $the_post_id ";
 $selectPostById = mysqli_query($connection, $query);
 
-if (!$selectPostById) {
-  die("Query failed!" . mysqli_error($connection));
-}
+checkQuery($selectPostById);
 
 while ($row = mysqli_fetch_assoc($selectPostById)) {
   $post_id = $row['post_id'];
@@ -71,11 +69,10 @@ if (isset($_POST['update_post'])) {
   <div class="form-group">
     <label class="form-label" for="post_category">Post Category </label>
     <select class="form-control" name="post_category" id="post_cat">
-      <option value="<?php echo $post_category_id?>">
       <?php
       $query = "SELECT cat_title FROM categories WHERE cat_id = {$post_category_id}";
       $selectTitle = mysqli_query($connection, $query);
-      if(!$selectTitle) {
+      if (!$selectTitle) {
         die("Query failed!" . mysqli_error($connection));
       } else {
         $row = mysqli_fetch_array($selectTitle);
@@ -88,15 +85,17 @@ if (isset($_POST['update_post'])) {
       $query = "SELECT * FROM categories";
       $selectCategories = mysqli_query($connection, $query);
 
-      if (!$selectCategories) {
-        die("Query failed!" . mysqli_error($connection));
-      }
+      checkQuery($selectCategories);
 
       while ($row = mysqli_fetch_assoc($selectCategories)) {
         $category_id = $row['cat_id'];
         $category_title = $row['cat_title'];
 
-        echo "<option value='$category_id'>$category_title</option>";
+        if ($category_id == $post_category_id) {
+          echo "<option selected value='$category_id'>$category_title</option>";
+        } else {
+          echo "<option value='$category_id'>$category_title</option>";
+        }
       }
       ?>
     </select>
@@ -105,14 +104,12 @@ if (isset($_POST['update_post'])) {
   <div class="form-group">
     <label class="form-label" for="post_author">Post Author </label>
     <select class="form-control" name="post_author" id="post_author">
-      <?php echo "<option selected value='{$post_author}'>$post_author</option>"?>
+      <?php echo "<option selected value='{$post_author}'>$post_author</option>" ?>
       <?php
       $query = "SELECT * FROM users";
       $selectUsers = mysqli_query($connection, $query);
 
-      if (!$selectUsers) {
-        die("Query failed!" . mysqli_error($connection));
-      }
+      checkQuery($selectUsers);
 
       while ($row = mysqli_fetch_assoc($selectUsers)) {
         $user_id = $row['user_id'];
@@ -120,7 +117,7 @@ if (isset($_POST['update_post'])) {
         $user_lastname = $row['user_lastname'];
         $user_firstname = $row['user_firstname'];
 
-        if(!empty($user_firstname) && !empty($user_lastname)) {
+        if (!empty($user_firstname) && !empty($user_lastname)) {
           echo "<option value='{$username}'>$user_lastname $user_firstname</option>";
         } else {
           echo "<option value='{$username}'>$username</option>";
@@ -136,15 +133,18 @@ if (isset($_POST['update_post'])) {
       $query = "SELECT DISTINCT post_status FROM posts";
       $selectStatusPost = mysqli_query($connection, $query);
 
-      if (!$selectStatusPost) {
-        die("Query failed!" . mysqli_error($connection));
-      }
+      checkQuery($selectStatusPost);
 
       while ($row = mysqli_fetch_assoc($selectStatusPost)) {
         $post_id = $row['post_id'];
         $post_status = $row['post_status'];
 
-        echo "<option value='$post_id'>$post_status</option>";
+        if ($post_status == 'Draft') {
+          echo "<option selected value='$post_id'>$post_status</option>";
+        } elseif ($post_status == 'Published') {
+          echo "<option selected value='$post_id'>$post_status</option>";
+          echo "<option value='Draft'>Draft</option>";
+        } 
       }
       ?>
     </select>

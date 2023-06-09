@@ -1,11 +1,21 @@
 <?php
 
-function escape($string) {
+function escape($string)
+{
   global $connection;
   mysqli_real_escape_string($connection, trim($string));
 }
 
-function redirectToAnotherPage($where) {
+function checkQuery($query)
+{
+  global $connection;
+  if (!$query) {
+    die("Query failed!" . mysqli_error($connection));
+  }
+}
+
+function redirectToAnotherPage($where)
+{
   echo "<script type='text/javascript'>
       window.location = 'http://localhost:8080/CMS-Project/main/main/admin/$where' 
       </script>";
@@ -25,9 +35,7 @@ function usersOnline()
 
       $query = "SELECT * FROM users_online WHERE session = '$session'";
       $querySession = mysqli_query($connection, $query);
-      if (!$querySession) {
-        die("Query failed!" . mysqli_error($connection));
-      }
+      checkQuery($querySession);
 
       $count = mysqli_num_rows($querySession);
       if (!$count == NULL) {
@@ -58,9 +66,7 @@ function insertCategory()
       $query .= "VALUE('{$cat_title}')";
 
       $createCategory = mysqli_query($connection, $query);
-      if (!$createCategory) {
-        die("Query failed" . mysqli_error($connection));
-      }
+      checkQuery($createCategory);
     }
   }
 }
@@ -74,9 +80,7 @@ function deleteCategory()
     $query = "DELETE FROM categories WHERE cat_id = {$cat_id_delete}";
     $delete_query = mysqli_query($connection, $query);
 
-    if (!$delete_query) {
-      die("Query failed!" . mysqli_error($connection));
-    }
+    checkQuery($delete_query);
   }
 }
 
@@ -99,4 +103,41 @@ function showCategories()
       <td><a href='categories.php?edit=<?php echo $cat_id; ?>'>Edit</a></td>
     </tr>
 <?php }
+}
+
+function editAdminProfile()
+{
+  global $connection;
+  $user_id = $_SESSION['user_id'];
+  if (isset($_POST['update_profile'])) {
+    $user_name = $_POST['user_name'];
+    $user_firstname = $_POST['user_firstname'];
+    $user_lastname = $_POST['user_lastname'];
+    $user_email = $_POST['user_email'];
+    $user_password = $_POST['user_password'];
+    $user_role = 'Admin';
+
+    $user_image = $_FILES['user_image']['name'];
+    $user_image_temp = $_FILES['user_image']['tmp_name'];
+
+    move_uploaded_file($user_image_temp, "../images/profile/$user_image");
+
+    if (empty($user_image)) {
+      $query = "SELECT * FROM users WHERE user_id = $user_id ";
+      $selectImage = mysqli_query($connection, $query);
+
+      while ($row = mysqli_fetch_assoc($selectImage)) {
+        $user_image = $row['user_image'];
+      }
+    }
+
+    $query = "UPDATE users SET user_name = '{$user_name}', user_firstname = '{$user_firstname}', user_lastname = '{$user_lastname}', user_email = '{$user_email}', user_password = '{$user_password}', user_role = '{$user_role}', user_image = '{$user_image}' WHERE user_id = {$user_id}";
+
+    $editQuery = mysqli_query($connection, $query);
+    if (!$editQuery) {
+      die("Query failed!" . mysqli_error($connection));
+    } else {
+      echo "<div class='alert alert-success' role='alert'>Profile Information Successfully Updated!</div>";
+    }
+  }
 }
