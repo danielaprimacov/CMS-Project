@@ -2,4 +2,6 @@
 
 <?php include "includes/header.php";?>
 
+<?php include "functions.php";?>
+
 <?php include "includes/footer.php";?>

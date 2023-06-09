@@ -10,9 +10,15 @@
       if (isset($_GET['category'])) {
         $category_id = $_GET['category'];
 
+        if(isset($_SESSION['user_role']) && strtolower($_SESSION['user_role']) == 'admin') {
+          $query = "SELECT * FROM posts WHERE post_category_id = $category_id";
+        } else {
+          $query = "SELECT * FROM posts WHERE post_category_id = $category_id AND post_status = 'Published'";
+        }
 
-        $query = "SELECT * FROM posts WHERE post_category_id = $category_id AND post_status = 'Published'";
         $selectAllPosts = mysqli_query($connection, $query);
+
+        checkQuery($selectAllPosts);
 
         if (mysqli_num_rows($selectAllPosts) < 1) {
           echo "<h1 class='text-center'>No posts avaible!</h1>";
@@ -26,11 +32,6 @@
             $post_img = $row['post_img'];
             $post_content = substr($row['post_content'], 0, 200);
       ?>
-
-            <h1 class="page-header">
-              Page Heading
-              <small>Secondary Text</small>
-            </h1>
 
             <!-- First Blog Post -->
             <h2>

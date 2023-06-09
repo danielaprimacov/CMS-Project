@@ -21,11 +21,15 @@
                 $page_1 = ($page * $per_page) - $per_page;
             }
 
-            $countPostQuery = "SELECT * FROM posts WHERE post_status = 'Published'";
-            $countPost = mysqli_query($connection, $countPostQuery);
-            if (!$countPost) {
-                die("Query failed!" . mysqli_error($connection));
+            if (isset($_SESSION['user_role']) && strtolower($_SESSION['user_role']) == 'admin') {
+                $countPostQuery = "SELECT * FROM posts";
+            } else {
+                $countPostQuery = "SELECT * FROM posts WHERE post_status = 'Published'";
             }
+
+            $countPost = mysqli_query($connection, $countPostQuery);
+            checkQuery($countPost);
+
             $countPosts = mysqli_num_rows($countPost);
 
             if ($countPosts < 1) {
@@ -36,6 +40,8 @@
                 $query = "SELECT * FROM posts LIMIT $page_1, $per_page";
                 $selectAllPosts = mysqli_query($connection, $query);
 
+                checkQuery($selectAllPosts);
+
                 while ($row = mysqli_fetch_assoc($selectAllPosts)) {
                     $post_id = $row['post_id'];
                     $post_title = $row['post_title'];
@@ -45,7 +51,7 @@
                     $post_content = substr($row['post_content'], 0, 200);
                     $post_status = $row['post_status'];
 
-                    ?>
+            ?>
                     <!-- Blog Post -->
                     <h1>
                         <a href="post.php?p_id=<?php echo $post_id; ?>"><?php echo $post_title; ?></a>
