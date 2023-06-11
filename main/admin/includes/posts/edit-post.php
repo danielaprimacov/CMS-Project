@@ -139,12 +139,7 @@ if (isset($_POST['update_post'])) {
         $post_id = $row['post_id'];
         $post_status = $row['post_status'];
 
-        if ($post_status == 'Draft') {
-          echo "<option selected value='$post_id'>$post_status</option>";
-        } elseif ($post_status == 'Published') {
-          echo "<option selected value='$post_id'>$post_status</option>";
-          echo "<option value='Draft'>Draft</option>";
-        } 
+        echo "<option selected value='$post_id'>$post_status</option>";
       }
       ?>
     </select>
