@@ -161,3 +161,17 @@ function selectByCondition($table, $condition)
   checkQuery($selectByCond);
   return $count;
 }
+
+function isAdmin($user_name = '') {
+  global $connection;
+  $query = "SELECT user_role FROM users WHERE user_name = '$user_name'";
+  $selectRole = mysqli_query($connection, $query);
+  checkQuery($selectRole);
+
+  $row = mysqli_fetch_array($selectRole);
+  if($row['user_role'] == 'Admin') {
+    return true;
+  } else {
+    return false;
+  }
+}

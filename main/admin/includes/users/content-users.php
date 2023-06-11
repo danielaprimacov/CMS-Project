@@ -1,9 +1,16 @@
 <div class="row">
   <div class="col-lg-12">
     <h1 class="page-header">
-      Posts
-      <small>Author</small>
+      Users
+      <small><?php echo $_SESSION['user_name']; ?></small>
     </h1>
+
+    <?php
+    if(!isAdmin($_SESSION['user_name'])) {
+      redirectToAnotherPage("index.php");
+    }
+
+    ?>  
 
     <?php
 
