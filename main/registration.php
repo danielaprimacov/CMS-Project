@@ -7,44 +7,41 @@
 
 <?php
 if (isset($_POST['submit'])) {
-  $username = $_POST['username'];
-  $email = $_POST['email'];
-  $password = $_POST['password'];
+  $username = trim($_POST['username']);
+  $email = trim($_POST['email']);
+  $password = trim($_POST['password']);
 
-  if (usernameExists($username)) {
-    $message = "<div class='alert alert-warning' role='alert'>Username already exists!</div>";
+  $error = [
+    'username'=> '',
+    'email'=> '',
+    'password'=> ''
+  ];
+
+  if(strlen($username) < 6) {
+    $error['username'] = "<div class='alert alert-warning' role='alert'>Username must be longer than 6 characters!</div>";
+  } elseif($username == '') {
+    $error['username'] = "<div class='alert alert-warning' role='alert'>Must provide username!</div>";
+  } elseif(usernameExists($username)) {
+    $error['username'] = "<div class='alert alert-warning' role='alert'>Username already exists!</div>";
   }
 
-  if (!$username) {
-    $message = "<div class='alert alert-danger' role='alert'>Must provide username!</div>";
-  } elseif (!$email) {
-    $message = "<div class='alert alert-danger' role='alert'>Must provide E-mail!</div>";
-  } elseif (!$password) {
-    $message = "<div class='alert alert-danger' role='alert'>Must provide password!</div>";
-  } else {
-    $username = mysqli_real_escape_string($connection, $username);
-    $email = mysqli_real_escape_string($connection, $email);
-    $password = mysqli_real_escape_string($connection, $password);
+  if($email == '') {
+    $error['email'] = "<div class='alert alert-warning' role='alert'>Must provide E-mail!</div>";
+  } elseif(emailExists($email)) {
+    $error['email'] = "<div class='alert alert-warning' role='alert'>E-mail already exists!</div><a href='index.php?page=1'>Go to Login Page</a>";
+  }
 
-    $query = "SELECT randSalt FROM users";
-    $randSaltQuery = mysqli_query($connection, $query);
-    checkQuery($randSaltQuery);
+  if($password == '') {
+    $error['password'] = "<div class='alert alert-warning' role='alert'>Must provide Password!</div>";
+  }
 
-    $row = mysqli_fetch_array($randSaltQuery);
-    $randSalt = $row['randSalt'];
-
-    $password = crypt($password, $randSalt);
-
-    $query = "INSERT INTO users (user_name, user_email, user_password, user_role) VALUES ('{$username}', '{$email}', '{$password}', 'User')";
-    $registrationQuery = mysqli_query($connection, $query);
-
-    if (!$registrationQuery) {
-      die("Query failed!" . mysqli_error($connection));
-    } else {
-      $message = '';
-      redirectToAnotherPage("index.php?page=1");
+  foreach($error as $key => $value) {
+    if(empty($value)) {
+      registrationUser($username, $email, $password);
+      loginUser($username, $password);
     }
   }
+
 }
 ?>
 
