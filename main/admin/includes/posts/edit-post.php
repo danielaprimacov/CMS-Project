@@ -130,16 +130,12 @@ if (isset($_POST['update_post'])) {
     <label class="form-label" for="post_status">Post Status</label>
     <select class="form-control" name="post_status" id="post_status">
       <?php
-      $query = "SELECT DISTINCT post_status FROM posts";
-      $selectStatusPost = mysqli_query($connection, $query);
-
-      checkQuery($selectStatusPost);
-
-      while ($row = mysqli_fetch_assoc($selectStatusPost)) {
-        $post_id = $row['post_id'];
-        $post_status = $row['post_status'];
-
+      if($post_status == 'Published') {
         echo "<option selected value='$post_id'>$post_status</option>";
+        echo "<option value='Draft'>Draft</option>";
+      } elseif($post_status == 'Draft') {
+         echo "<option selected value='$post_id'>$post_status</option>";
+         echo "<option value='Published'>Published</option>";
       }
       ?>
     </select>
