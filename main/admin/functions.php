@@ -175,3 +175,4 @@ function isAdmin($user_name = '') {
     return false;
   }
 }
+

@@ -1,5 +1,6 @@
 <?php include "includes/db.php"; ?>
 <?php include "includes/header.php"; ?>
+<?php include "functions.php"; ?>
 
 <!-- Navigation -->
 <?php include "includes/navigation.php"; ?>
@@ -9,6 +10,10 @@ if (isset($_POST['submit'])) {
   $username = $_POST['username'];
   $email = $_POST['email'];
   $password = $_POST['password'];
+
+  if (usernameExists($username)) {
+    $message = "<div class='alert alert-warning' role='alert'>Username already exists!</div>";
+  }
 
   if (!$username) {
     $message = "<div class='alert alert-danger' role='alert'>Must provide username!</div>";

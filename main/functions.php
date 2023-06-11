@@ -51,4 +51,16 @@ function addComment()
   }
 }
 
+function usernameExists($user_name) {
+  global $connection;
+  $query = "SELECT user_name FROM users WHERE user_name = '$user_name'";
 
+  $result = mysqli_query($connection, $query);
+  checkQuery($result);
+
+  if(mysqli_num_rows($result) > 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
