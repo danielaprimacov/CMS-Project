@@ -136,7 +136,6 @@ function loginUser($user_name, $user_password)
     $user_password = crypt($user_password, $db_user_password);
 
     if ($user_password !== $db_user_password) {
-      $message = "<div class='alert alert-danger' role='alert'>Password is not correct!</div>";
     } elseif (($user_name === $db_user_name) && ($user_password === $db_user_password)) {
       $_SESSION['user_id'] = $db_user_id;
       $_SESSION['user_name'] = $db_user_name;

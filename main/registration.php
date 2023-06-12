@@ -6,42 +6,44 @@
 <?php include "includes/navigation.php"; ?>
 
 <?php
-if (isset($_POST['submit'])) {
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
   $username = trim($_POST['username']);
   $email = trim($_POST['email']);
   $password = trim($_POST['password']);
 
   $error = [
-    'username'=> '',
-    'email'=> '',
-    'password'=> ''
+    'username' => '',
+    'email' => '',
+    'password' => ''
   ];
 
-  if(strlen($username) < 6) {
-    $error['username'] = "<div class='alert alert-warning' role='alert'>Username must be longer than 6 characters!</div>";
-  } elseif($username == '') {
+  if ($username == '') {
     $error['username'] = "<div class='alert alert-warning' role='alert'>Must provide username!</div>";
-  } elseif(usernameExists($username)) {
+  } elseif (strlen($username) < 6) {
+    $error['username'] = "<div class='alert alert-warning' role='alert'>Username must be longer than 6 characters!</div>";
+  } elseif (usernameExists($username)) {
     $error['username'] = "<div class='alert alert-warning' role='alert'>Username already exists!</div>";
   }
 
-  if($email == '') {
+  if ($email == '') {
     $error['email'] = "<div class='alert alert-warning' role='alert'>Must provide E-mail!</div>";
-  } elseif(emailExists($email)) {
+  } elseif (emailExists($email)) {
     $error['email'] = "<div class='alert alert-warning' role='alert'>E-mail already exists!</div><a href='index.php?page=1'>Go to Login Page</a>";
   }
 
-  if($password == '') {
+  if ($password == '') {
     $error['password'] = "<div class='alert alert-warning' role='alert'>Must provide Password!</div>";
   }
 
-  foreach($error as $key => $value) {
-    if(empty($value)) {
-      registrationUser($username, $email, $password);
-      loginUser($username, $password);
+  foreach ($error as $key => $value) {
+    if (empty($value)) {
+      unset($error[$key]);
     }
   }
 
+  if (empty($error)) {
+    registrationUser($username, $email, $password);
+  }
 }
 ?>
 

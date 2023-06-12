@@ -6,18 +6,31 @@
                     <div class="col-xs-6 col-xs-offset-3">
                         <div class="form-wrap">
                             <h1>Register</h1>
+                            <h5><?php if (isset($error['username'])) {
+                                    echo $error['username'];
+                                } elseif (isset($error['email'])) {
+                                    echo $error['email'];
+                                } elseif (isset($error['password'])) {
+                                    echo $error['password'];
+                                } else {
+                                    echo '';
+                                }
+                                ?></h5>
                             <form role="form" action="registration.php" method="post" id="login-form" autocomplete="off">
                                 <div class="form-group">
                                     <label for="username" class="sr-only">username</label>
-                                    <input type="text" name="username" id="username" class="form-control" placeholder="Enter Username" autocomplete="on" value="<?php echo isset($username
-                                        ) ? $username
-                                        : ''; ?>">
+
+                                    <input type="text" name="username" id="username" class="form-control" placeholder="Enter Username" autocomplete="on" value="<?php echo isset(
+                                                                                                                                                                    $username
+                                                                                                                                                                ) ? $username
+                                                                                                                                                                    : ''; ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="email" class="sr-only">Email</label>
-                                    <input type="email" name="email" id="email" class="form-control" placeholder="example@example.com" autocomplete="on" value="<?php echo isset($email
-                                        ) ? $email
-                                        : ''; ?>">
+                                    <input type="email" name="email" id="email" class="form-control" placeholder="example@example.com" autocomplete="on" value="<?php echo isset(
+                                                                                                                                                                    $email
+                                                                                                                                                                ) ? $email
+                                                                                                                                                                    : ''; ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="password" class="sr-only">Password</label>
