@@ -43,6 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
   if (empty($error)) {
     registrationUser($username, $email, $password);
+
+    loginUser($username, $password);
   }
 }
 ?>
