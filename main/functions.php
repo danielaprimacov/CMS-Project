@@ -87,10 +87,6 @@ function registrationUser($username, $email, $password)
 {
   global $connection;
 
-  $username = $_POST['username'];
-  $email = $_POST['email'];
-  $password = $_POST['password'];
-
   $username = mysqli_real_escape_string($connection, $username);
   $email = mysqli_real_escape_string($connection, $email);
   $password = mysqli_real_escape_string($connection, $password);
@@ -114,6 +110,45 @@ function registrationUser($username, $email, $password)
   }
 }
 
-function loginUser($username, $password){
+function loginUser($user_name, $user_password)
+{
+  global $connection;
+  $user_name = trim($user_name);
+  $user_password = trim($user_password);
 
+
+  $user_name = mysqli_real_escape_string($connection, $user_name);
+  $user_password = mysqli_real_escape_string($connection, $user_password);
+
+  $query = "SELECT * FROM users WHERE user_name = '{$user_name}'";
+  $checkUser = mysqli_query($connection, $query);
+  checkQuery($checkUser);
+
+  while ($row = mysqli_fetch_assoc($checkUser)) {
+    $db_user_id = $row['user_id'];
+    $db_user_name = $row['user_name'];
+    $db_user_password = $row['user_password'];
+    $db_user_email = $row['user_email'];
+    $db_user_firstname = $row['user_firstname'];
+    $db_user_lastname = $row['user_lastname'];
+    $db_user_role = $row['user_role'];
+
+    $user_password = crypt($user_password, $db_user_password);
+
+    if ($user_password !== $db_user_password) {
+      $message = "<div class='alert alert-danger' role='alert'>Password is not correct!</div>";
+    } elseif (($user_name === $db_user_name) && ($user_password === $db_user_password)) {
+      $_SESSION['user_id'] = $db_user_id;
+      $_SESSION['user_name'] = $db_user_name;
+      $_SESSION['user_firstname'] = $db_user_firstname;
+      $_SESSION['user_lastname'] = $db_user_lastname;
+      $_SESSION['user_role'] = $db_user_role;
+
+      if (strtolower($_SESSION['user_role']) == 'admin') {
+        redirectToAnotherPage("admin/index.php");
+      } else {
+        redirectToAnotherPage("index.php?page=1");
+      }
+    }
+  }
 }
