@@ -10,8 +10,11 @@
         <p>Are are you sure you want to delete this?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <a href="" class="btn btn-danger modal_delete_link">Delete</a>
+        <form action="posts.php" method="post">
+          <input type="hidden" class="modal_delete_link" name="delete-post" value="">
+          <input class="btn btn-danger delete_link" type="submit" name="delete" value="Delete">
+        </form>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>

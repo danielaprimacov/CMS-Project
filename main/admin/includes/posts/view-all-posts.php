@@ -1,7 +1,7 @@
 <?php include "/xampp/htdocs/CMS-Project/main/main/admin/includes/delete-modal.php"; ?>
 <?php
-if (isset($_GET['delete'])) {
-  $post_id_delete = $_GET['delete'];
+if (isset($_POST['delete-post'])) {
+  $post_id_delete = mysqli_real_escape_string($connection, $_POST['delete-post']);
   $query = "DELETE FROM posts WHERE post_id = {$post_id_delete}";
   $deleteQuery = mysqli_query($connection, $query);
 
@@ -121,7 +121,7 @@ if (isset($_POST['checkBoxArray'])) {
       <?php
 
       // $query = "SELECT * FROM posts ORDER BY post_id DESC";
-      
+
       $query = "SELECT * FROM posts LEFT JOIN categories ON posts.post_category_id = categories.cat_id ORDER BY posts.post_id DESC";
 
       $selectAllPosts = mysqli_query($connection, $query);
@@ -165,7 +165,7 @@ if (isset($_POST['checkBoxArray'])) {
           //   $cat_id = $row['cat_id'];
           //   $cat_title = $row['cat_title'];
 
-            echo "<td>{$cat_title}</td>";
+          echo "<td>{$cat_title}</td>";
           //}
           ?>
 
@@ -190,9 +190,20 @@ if (isset($_POST['checkBoxArray'])) {
 
           <td><a href='posts-comments.php?id=<?php echo $post_id; ?>'><?php echo $countComments; ?></a></td>
           <td><?php echo $post_date; ?></td>
-          <td><a href='../post.php?p_id=<?php echo $post_id; ?>'>View</a></td>
-          <td><a href='posts.php?source=edit-post&p_id=<?php echo $post_id; ?>'>Edit</a></td>
-          <td><a class="delete_link" rel="<?php echo $post_id; ?>" href='javascript:void(0)'>Delete</a></td>
+          <td><a class='btn btn-info' href='../post.php?p_id=<?php echo $post_id; ?>'>View</a></td>
+          <td><a class='btn btn-success' href='posts.php?source=edit-post&p_id=<?php echo $post_id; ?>'>Edit</a></td>
+
+          <!-- <td><a class="delete_link" rel="<?php echo $post_id; ?>" href='javascript:void(0)'>Delete</a></td> -->
+
+          <form method="post">
+            <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
+            <?php
+            echo "<td><input rel='$post_id' class='btn btn-danger delete_link' type='submit' name='delete' value='Delete'></td>";
+            ?>
+
+            <!-- <td><input type="submit" name="delete"></td> -->
+          </form>
+
           <td><a href='posts.php?reset=<?php echo $post_id; ?>'><?php echo $post_view_count; ?></a></td>
         </tr>
       <?php } ?>
@@ -203,11 +214,11 @@ if (isset($_POST['checkBoxArray'])) {
 
 <script>
   $(document).ready(function() {
-    $(".delete_link").on('click', function() {
-      var id = $(this).attr("rel");
-      var delete_url = "posts.php?delete="+ id +" ";
+    $(".delete_link").on('click', function(e) {
+      e.preventDefault();
+      let id = $(this).attr("rel");      
 
-      $(".modal-delete-link").attr("href", delete_url);      
+      $(".modal_delete_link").val(id);
 
       $("#staticBackdrop").modal('show');
     });

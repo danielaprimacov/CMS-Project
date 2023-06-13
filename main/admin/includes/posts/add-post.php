@@ -77,8 +77,16 @@ if (isset($_POST['add_post'])) {
       while ($row = mysqli_fetch_assoc($selectUsers)) {
         $user_id = $row['user_id'];
         $username = $row['user_name'];
+        $user_firstname = $row['user_firstname'];
+        $user_lastname = $row['user_lastname'];
 
-        echo "<option value='{$username}'>$username</option>";
+        if(empty($user_firstname) && empty($user_lastname)) {
+          echo "<option value='{$username}'>$username</option>";
+        } else {
+          echo "<option value='{$user_id}'>$user_firstname $user_lastname</option>";
+        }
+
+        
       }
       ?>
     </select>
