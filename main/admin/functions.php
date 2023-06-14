@@ -19,6 +19,7 @@ function redirectToAnotherPage($where)
   echo "<script type='text/javascript'>
       window.location = 'http://localhost:8080/CMS-Project/main/main/admin/$where' 
       </script>";
+      exit;
 }
 
 function usersOnline()
@@ -162,17 +163,37 @@ function selectByCondition($table, $condition)
   return $count;
 }
 
-function isAdmin($user_name = '') {
+function isAdmin($user_name = '')
+{
   global $connection;
   $query = "SELECT user_role FROM users WHERE user_name = '$user_name'";
   $selectRole = mysqli_query($connection, $query);
   checkQuery($selectRole);
 
   $row = mysqli_fetch_array($selectRole);
-  if($row['user_role'] == 'Admin') {
+  if ($row['user_role'] == 'Admin') {
     return true;
   } else {
     return false;
   }
 }
 
+function ifItIsMethod($method=null) {
+  if($_SERVER['REQUEST_METHOD'] == strtoupper($method)) {
+    return true;
+  }
+  return false;
+}
+
+function isLoggedIn() {
+  if(isset($_SESSION['user_role'])) {
+    return true;
+  }
+  return false;
+}
+
+function checkIfUserIsLoggedInAndRedirect($location=null) {
+  if(isLoggedIn()) {
+    redirectToAnotherPage($location);
+  }
+}
