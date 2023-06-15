@@ -4,7 +4,14 @@
 
 
 <?php
-checkIfUserIsLoggedInAndRedirect("admin");
+checkIfUserIsLoggedInAndRedirect('admin');
+if(ifItIsMethod('post')) {
+	if(isset($_POST['username']) && isset($_POST['password'])) {
+		loginUser($_POST['username'], $_POST['password']);
+	} else {
+		redirectToAnotherPage('includes/login.php');
+	}
+}
 ?>
 
 <!-- Navigation -->
