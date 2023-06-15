@@ -31,7 +31,7 @@
 
           if (isset($_GET['category']) && $_GET['category'] == $cat_id) {
             $category_class = 'active';
-          } elseif($pageName == $contact) {
+          } elseif ($pageName == $contact) {
             $contact_class = 'active';
           }
 
@@ -47,7 +47,7 @@
             <a href="admin">Admin</a>
           </li>
           <?php
-          if(isset($_GET['p_id'])) {
+          if (isset($_GET['p_id'])) {
             $post_id_edit = $_GET['p_id'];
             echo "<li><a href='admin/posts.php?source=edit-post&p_id={$post_id_edit}'>Edit Post</a></li>";
           }
@@ -55,8 +55,11 @@
         <?php } ?>
 
         <li class="<?php echo $contact_class; ?>">
-            <a href="contact.php">Contact</a>
-          </li>
+          <a href="contact.php">Contact</a>
+        </li>
+        <li>
+          <a href="login.php">Login</a>
+        </li>
       </ul>
     </div>
     <!-- /.navbar-collapse -->

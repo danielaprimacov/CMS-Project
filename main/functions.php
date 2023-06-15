@@ -151,3 +151,27 @@ function loginUser($user_name, $user_password)
     }
   }
 }
+
+
+function ifItIsMethod($method = null)
+{
+  if ($_SERVER['REQUEST_METHOD'] == strtoupper($method)) {
+    return true;
+  }
+  return false;
+}
+
+function isLoggedIn()
+{
+  if (isset($_SESSION['user_role'])) {
+    return true;
+  }
+  return false;
+}
+
+function checkIfUserIsLoggedInAndRedirect($location = null)
+{
+  if (isLoggedIn()) {
+    redirectToAnotherPage($location);
+  }
+}
