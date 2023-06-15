@@ -43,19 +43,20 @@
                         </div>
                     </div> <!-- /.col-xs-12 -->
                 </div> <!-- /.row -->
+                <!-- Footer -->
+                <footer>
+                    <hr>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p>Copyright &copy; Start Coding 2023</p>
+                        </div>
+                        <!-- /.col-lg-12 -->
+                    </div>
+                    <!-- /.row -->
+                </footer>
             </div> <!-- /.container -->
         </section>
 
-        <!-- Footer -->
-        <footer>
-            <hr>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; Start Coding 2023</p>
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-        </footer>
+
     </div>
 </div>
