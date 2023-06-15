@@ -1,6 +1,14 @@
+<?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+?>
+
 <?php include "includes/db.php"; ?>
 <?php include "includes/header.php"; ?>
 <?php include "functions.php"; ?>
+
+<?php require './Classes/config.php'; ?>
+<?php require '/xampp/htdocs/CMS-Project/main/main/vendor/autoload.php'; ?>
 
 <?php
 if (!ifItIsMethod('get') && !isset($_GET['forgot'])) {
@@ -20,7 +28,41 @@ if (ifItIsMethod('post')) {
                 mysqli_stmt_execute($stmt);
                 mysqli_stmt_close($stmt);
 
+                // Configure PHPMailer
+                $mail = new PHPMailer(true);
+                try {
+                    //Server settings
+                    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+                    $mail->isSMTP();                                            //Send using SMTP
+                    $mail->Host       = Config::SMTP_HOST;                     //Set the SMTP server to send through
+                    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                    $mail->Username   = Config::SMTP_USERNAME;                     //SMTP username
+                    $mail->Password   = Config::SMTP_PASSWORD;                               //SMTP password
+                    // $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+                    $mail->Port       = Config::SMTP_PORT;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+                    //Recipients
+                    $mail->setFrom('from@example.com', 'Mailer');
+                    $mail->addAddress('joe@example.net', 'Joe User');     //Add a recipient
                 
+
+                    // //Attachments
+                    // $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
+                    // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
+
+                    //Content
+                    $mail->isHTML(true);                                  //Set email format to HTML
+                    $mail->Subject = 'Here is the subject';
+                    $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+
+                    if($mail->send()) {
+                        redirectToAnotherPage("index.php?page=1");
+                    }
+
+                    //echo 'Message has been sent';
+                } catch (Exception $e) {
+                    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                }
             } else {
                 $error = mysqli_error($connection);
                 echo "<div class='alert alert-danger' role='alert'>$error</div>";
