@@ -1,4 +1,10 @@
 <!-- Page Content -->
+<?php
+if(isset($_POST['liked'])) {
+  echo "<h1>Liked!</h1>";
+}
+?>
+
 <div class="container">
 
   <div class="row">
@@ -63,6 +69,15 @@
             <p class="lead"><?php echo $post_content; ?></p>
 
             <hr>
+
+            <div class="row" id="likebtn">
+              <p class="pull-right"><a class="like" href="javascript:void(0)"><span class="glyphicon glyphicon-thumbs-up"></span> Like</a><span id="countLikes"> 0</span></p>
+            </div>
+            <div class="clearfix"></div>
+
+
+
+
 
           <?php } ?>
           <!-- Blog Comments -->
@@ -143,4 +158,35 @@
     <!-- /.row -->
   </footer>
 
+  <!-- jQuery -->
+  <script src="js/jquery.js"></script>
+
+  <!-- Bootstrap Core JavaScript -->
+  <script src="js/bootstrap.min.js"></script>
+
+  </body>
+
+  </html>
+
 </div>
+
+<script>
+  $(document).ready(function() {
+    var post_id = <?php echo $post_id; ?>;
+    var user_id = 5;
+
+    $('.like').click(function(e) {
+      e.preventDefault();
+
+      $.ajax({
+        url: "post.php?p_id=<?php echo $post_id; ?>",
+        type: 'post',
+        data: {
+          'liked': 1,
+          'post_id': post_id,
+          'user_id': user_id
+        }
+      });
+    });
+  });
+</script>
