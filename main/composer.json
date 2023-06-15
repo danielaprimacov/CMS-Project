@@ -12,6 +12,6 @@
         }
     ],
     "require": {
-        "phpmailer/phpmailer": "5.2.28"
+        "phpmailer/phpmailer": "^6.8"
     }
 }
