@@ -1,4 +1,5 @@
 <?php
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 ?>
@@ -10,7 +11,7 @@ use PHPMailer\PHPMailer\SMTP;
 <?php require '/xampp/htdocs/CMS-Project/main/main/vendor/autoload.php'; ?>
 
 <?php
-if (!ifItIsMethod('get') && !isset($_GET['forgot'])) {
+if (!isset($_GET['forgot'])) {
     redirectToAnotherPage('index.php?page=1');
 }
 
@@ -28,41 +29,43 @@ if (ifItIsMethod('post')) {
                 mysqli_stmt_close($stmt);
 
                 // Configure PHPMailer
-                $mail = new PHPMailer(true);
-                try {
-                    //Server settings
-                    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-                    $mail->isSMTP();                                            //Send using SMTP
-                    $mail->Host       = Config::SMTP_HOST;                     //Set the SMTP server to send through
-                    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-                    $mail->Username   = Config::SMTP_USERNAME;                     //SMTP username
-                    $mail->Password   = Config::SMTP_PASSWORD;                               //SMTP password
-                    // $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-                    $mail->Port       = Config::SMTP_PORT;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+                $mail = new PHPMailer();
 
-                    //Recipients
-                    $mail->setFrom('from@example.com', 'Mailer');
-                    $mail->addAddress('joe@example.net', 'Joe User');     //Add a recipient
-                
+                //Server settings
+                $mail->SMTPDebug = 0;                      //Enable verbose debug output
+                $mail->isSMTP();                                            //Send using SMTP
+                $mail->Host       = Config::SMTP_HOST;                     //Set the SMTP server to send through
+                $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                $mail->Username   = Config::SMTP_USERNAME;                     //SMTP username
+                $mail->Password   = Config::SMTP_PASSWORD;                               //SMTP password
+                // $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+                $mail->Port       = Config::SMTP_PORT;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
-                    // //Attachments
-                    // $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
-                    // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
+                //Recipients
+                $mail->setFrom('from@example.com', 'Mailer');
+                $mail->addAddress('joe@example.net', 'Joe User');     //Add a recipient
 
-                    //Content
-                    $mail->isHTML(true);                                  //Set email format to HTML
-                    $mail->CharSet = 'UTF-8';
-                    $mail->Subject = 'Here is the subject';
-                    $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
 
-                    if($mail->send()) {
-                        redirectToAnotherPage("index.php?page=1");
-                    }
+                // //Attachments
+                // $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
+                // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
 
-                    //echo 'Message has been sent';
-                } catch (Exception $e) {
-                    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                //Content
+                $mail->isHTML(true);                                  //Set email format to HTML
+                $mail->CharSet = 'UTF-8';
+                $mail->Subject = 'Here is the subject';
+                $mail->Body    = '<p>Click <a href="http://localhost:8080/CMS-Project/main/main/reset.php?email=' . $email . '&token=' . $token . ' ">Here </a>to change your password</p>';
+
+                if ($mail->send()) {
+                    $message = "<div class='alert alert-success' role='alert'>Message was sent! Check your E-mail!</div>";
+                    $emailSent = true;
+                } else {
+                    $message = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                    $emailSent = false;
                 }
+
+                //echo 'Message has been sent';
+
             } else {
                 $error = mysqli_error($connection);
                 echo "<div class='alert alert-danger' role='alert'>$error</div>";
@@ -85,24 +88,29 @@ if (ifItIsMethod('post')) {
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="text-center">
-                            <h3><i class="fa fa-lock fa-4x"></i></h3>
-                            <h2 class="text-center">Forgot Password?</h2>
-                            <p>You can reset your password here.</p>
-                            <div class="panel-body">
-                                <form id="register-form" role="form" autocomplete="off" class="form" method="post">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
-                                            <input id="email" name="email" placeholder="Enter Your E-mail address" class="form-control" type="email">
+                            <?php if (!isset($emailSent)) : ?>
+                                <h3><i class="fa fa-lock fa-4x"></i></h3>
+                                <h2 class="text-center">Forgot Password?</h2>
+                                <p>You can reset your password here.</p>
+                                <div class="panel-body">
+                                    <form id="register-form" role="form" autocomplete="off" class="form" method="post">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
+                                                <input id="email" name="email" placeholder="Enter Your E-mail address" class="form-control" type="email">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <input name="recover-submit" class="btn btn-lg btn-primary btn-block" value="Reset Password" type="submit">
-                                    </div>
-                                    <input type="hidden" class="hide" name="token" id="token" value="">
-                                </form>
-                            </div><!-- Body-->
+                                        <div class="form-group">
+                                            <input name="recover-submit" class="btn btn-lg btn-primary btn-block" value="Reset Password" type="submit">
+                                        </div>
+                                        <input type="hidden" class="hide" name="token" id="token" value="">
+                                    </form>
+                                </div><!-- Body-->
+                            <?php else : ?>
 
+                                <h2><?php echo $message; ?></h2>
+
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
