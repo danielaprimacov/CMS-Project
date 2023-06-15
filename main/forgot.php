@@ -7,7 +7,6 @@ use PHPMailer\PHPMailer\SMTP;
 <?php include "includes/header.php"; ?>
 <?php include "functions.php"; ?>
 
-<?php require './Classes/config.php'; ?>
 <?php require '/xampp/htdocs/CMS-Project/main/main/vendor/autoload.php'; ?>
 
 <?php
@@ -52,6 +51,7 @@ if (ifItIsMethod('post')) {
 
                     //Content
                     $mail->isHTML(true);                                  //Set email format to HTML
+                    $mail->CharSet = 'UTF-8';
                     $mail->Subject = 'Here is the subject';
                     $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
 

@@ -3,7 +3,11 @@
     "autoload": {
         "psr-4": {
             "User\\Main\\": "src/"
-        }
+        },
+        "classmap": [
+            "Classes/"
+        ]
+
     },
     "authors": [
         {

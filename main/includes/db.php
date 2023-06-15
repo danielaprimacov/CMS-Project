@@ -16,6 +16,9 @@ if(!$connection) {
   echo "Database didn't connect";
 }
 
+$query = "SET NAMES utf8";
+mysqli_query($connection, $query);
+
 ?>
 
 <?php session_start(); ?>
