@@ -155,7 +155,7 @@ if (isset($_POST['checkBoxArray'])) {
               }
               ?></td>
           <td><?php echo $post_title; ?></td>
-          <td><?php echo $post_content; ?></td>
+          <td><?php echo mb_strimwidth($post_content, 0, 150, "..."); ?></td>
 
           <?php
           $query = "SELECT * FROM categories WHERE cat_id = $post_category_id";
@@ -170,7 +170,7 @@ if (isset($_POST['checkBoxArray'])) {
           ?>
 
           <td><?php echo $post_status; ?></td>
-          <td><img class='img-responsive' src='../images/<?php echo $post_img; ?>'></td>
+          <td><img class='img-responsive' src='../images/<?php echo placeholderEmptyImage($post_img); ?>'></td>
           <td><?php echo $post_tags; ?></td>
 
           <?php

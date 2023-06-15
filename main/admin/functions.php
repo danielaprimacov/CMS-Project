@@ -177,3 +177,11 @@ function isAdmin($user_name = '')
     return false;
   }
 }
+
+function placeholderEmptyImage($img=null){
+  if(!$img) {
+    return 'No-Image-Placeholder.png';
+  } else {
+    return $img;
+  }
+}

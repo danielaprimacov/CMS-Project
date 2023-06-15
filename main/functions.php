@@ -175,3 +175,12 @@ function checkIfUserIsLoggedInAndRedirect($location = null)
     redirectToAnotherPage($location);
   }
 }
+
+function placeholderEmptyImage($img = null)
+{
+  if (!$img) {
+    return 'No-Image-Placeholder.png';
+  } else {
+    return $img;
+  }
+}

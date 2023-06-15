@@ -55,7 +55,7 @@
             <hr>
 
             <!-- Preview Image -->
-            <img class="img-responsive" src="./images/<?php echo $post_img; ?>" alt="">
+            <img class="img-responsive" src="./images/<?php echo placeholderEmptyImage($post_img); ?>" alt="">
 
             <hr>
 
@@ -67,7 +67,7 @@
           <?php } ?>
           <!-- Blog Comments -->
 
-          <?php addComment();?>
+          <?php addComment(); ?>
 
           <!-- Comments Form -->
           <div class="well">
