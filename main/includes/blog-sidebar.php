@@ -24,6 +24,14 @@
 
         loginUser($user_name, $user_password);
     }
+
+    if(ifItIsMethod('post')) {
+        if(isset($_POST['user_name']) && isset($_POST['password'])) {
+            loginUser($user_name, $user_password);
+        } else {
+            redirectToAnotherPage('index.php?page=1');
+        }
+    }
     ?>
 
     <!--Login  -->
@@ -50,7 +58,7 @@
                     <span>Don't have a profile? Then </span><a href="registration.php">Register</a>
                 </span><br>
                 <span class="form-group">
-                    <span>Forgot your password?  </span><a href="">Click Here</a>
+                    <span>Forgot your password?  </span><a href="forgot.php?forgot=<?php echo uniqid(true); ?>">Click Here</a>
                 </span>
             </form> <!--search form-->
             <!-- /.input-group -->
