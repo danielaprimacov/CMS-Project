@@ -1,12 +1,12 @@
 <?php
 
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
 ?>
 
 <?php include "includes/db.php"; ?>
 <?php include "includes/header.php"; ?>
 <?php include "functions.php"; ?>
+<?php include "includes/navigation.php"; ?>
 
 <?php require '/xampp/htdocs/CMS-Project/main/main/vendor/autoload.php'; ?>
 
