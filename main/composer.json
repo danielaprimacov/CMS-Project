@@ -11,5 +11,7 @@
             "email": "daniela.primacov@yahoo.com"
         }
     ],
-    "require": {}
+    "require": {
+        "phpmailer/phpmailer": "5.2.28"
+    }
 }
