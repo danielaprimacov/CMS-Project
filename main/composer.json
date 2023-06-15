@@ -1,0 +1,15 @@
+{
+    "name": "user/main",
+    "autoload": {
+        "psr-4": {
+            "User\\Main\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Daniela",
+            "email": "daniela.primacov@yahoo.com"
+        }
+    ],
+    "require": {}
+}

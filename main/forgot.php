@@ -20,7 +20,7 @@ if (ifItIsMethod('post')) {
                 mysqli_stmt_execute($stmt);
                 mysqli_stmt_close($stmt);
 
-
+                
             } else {
                 $error = mysqli_error($connection);
                 echo "<div class='alert alert-danger' role='alert'>$error</div>";
