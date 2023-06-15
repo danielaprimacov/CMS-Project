@@ -41,10 +41,13 @@
         ?>
 
         <?php
-        if (strtolower($_SESSION['user_role']) == 'admin') {
+        if (strtolower($_SESSION['user_role']) == 'admin' && isLoggedIn()) {
         ?>
           <li>
             <a href="admin">Admin</a>
+          </li>
+          <li>
+            <a href="includes/logout.php">Logout</a>
           </li>
           <?php
           if (isset($_GET['p_id'])) {
@@ -57,9 +60,12 @@
         <li class="<?php echo $contact_class; ?>">
           <a href="contact.php">Contact</a>
         </li>
-        <li>
-          <a href="login.php">Login</a>
-        </li>
+
+        <?php if (!isLoggedIn()) : ?>
+          <li>
+            <a href="login.php">Login</a>
+          </li>
+        <?php endif; ?>
       </ul>
     </div>
     <!-- /.navbar-collapse -->

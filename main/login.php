@@ -3,6 +3,9 @@
 <?php include "functions.php"; ?>
 
 
+<?php
+checkIfUserIsLoggedInAndRedirect("admin");
+?>
 
 <!-- Navigation -->
 
