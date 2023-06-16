@@ -184,3 +184,45 @@ function placeholderEmptyImage($img = null)
     return $img;
   }
 }
+
+function addLike($user_id, $post_id)
+{
+  global $connection;
+  // Select specific post
+  $postToLike = "SELECT * FROM posts WHERE post_id=$post_id";
+  $postToLikeQuery = mysqli_query($connection, $postToLike);
+  checkQuery($postToLikeQuery);
+
+  $postResult = mysqli_fetch_array($postToLikeQuery);
+  $likes = $postResult['likes'];
+
+  // Update post with likes
+  $updateLikesQuery = mysqli_query($connection, "UPDATE posts SET likes=$likes+1 WHERE post_id=$post_id");
+  checkQuery($updateLikesQuery);
+
+  // Create likes for post
+  $insertQuery = mysqli_query($connection, "INSERT INTO likes(user_id, post_id) VALUES($user_id, $post_id)");
+  checkQuery($insertQuery);
+  exit();
+}
+
+function unLike($user_id, $post_id)
+{
+  global $connection;
+  $postToUnLike = "SELECT * FROM posts WHERE post_id=$post_id";
+  $postToUnLikeQuery = mysqli_query($connection, $postToUnLike);
+  checkQuery($postToUnLikeQuery);
+
+  $postResult = mysqli_fetch_array($postToUnLikeQuery);
+  $likes = $postResult['likes'];
+
+  // Delete likes
+  $deleteLikes = mysqli_query($connection, "DELETE FROM likes WHERE post_id=$post_id AND user_id=$user_id");
+  checkQuery($deleteLikes);
+
+  // Update post with likes
+  $updateLikesQuery = mysqli_query($connection, "UPDATE posts SET likes=$likes-1 WHERE post_id=$post_id");
+  checkQuery($updateLikesQuery);
+
+  exit();
+}

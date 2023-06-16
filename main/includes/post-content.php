@@ -1,14 +1,22 @@
 <!-- Page Content -->
 <?php
-if(isset($_POST['liked'])) {
-  echo "<h1>Liked!</h1>";
+if (isset($_POST['liked'])) {
+  $post_id = $_POST['post_id'];
+  $user_id = $_POST['user_id'];
+  
+  addLike($user_id, $post_id);
+}
+
+if (isset($_POST['unliked'])) {
+  $post_id = $_POST['post_id'];
+  $user_id = $_POST['user_id'];
+
+  unLike($user_id, $post_id);
 }
 ?>
 
 <div class="container">
-
   <div class="row">
-
     <!-- Blog Post Content Column -->
     <div class="col-lg-8">
 
@@ -70,8 +78,11 @@ if(isset($_POST['liked'])) {
 
             <hr>
 
-            <div class="row" id="likebtn">
+            <div class="row">
               <p class="pull-right"><a class="like" href="javascript:void(0)"><span class="glyphicon glyphicon-thumbs-up"></span> Like</a><span id="countLikes"> 0</span></p>
+            </div>
+            <div class="row">
+              <p class="pull-right"><a class="unlike" href="javascript:void(0)"><span class="glyphicon glyphicon-thumbs-down"></span> Unlike</a></p>
             </div>
             <div class="clearfix"></div>
 
@@ -188,5 +199,21 @@ if(isset($_POST['liked'])) {
         }
       });
     });
+    // <-- Like End
+
+    $('.unlike').click(function(e) {
+      e.preventDefault();
+
+      $.ajax({
+        url: "post.php?p_id=<?php echo $post_id; ?>",
+        type: 'post',
+        data: {
+          'unliked': 1,
+          'post_id': post_id,
+          'user_id': user_id
+        }
+      });
+    });
+    // <-- Unlike End
   });
 </script>
