@@ -118,13 +118,13 @@ if (isset($_GET['p_id'])) {
           <?php if (isLoggedIn()) { ?>
 
             <div class="row">
-              <p class="pull-right"><a class="<?php echo userLiked($the_post_id) ? 'unlike' : 'like'; ?>" href=""><span class="glyphicon glyphicon-thumbs-up"></span> <?php echo userLiked($the_post_id) ? 'Unlike' : 'Like'; ?></a></p>
+              <p class="pull-right"><a class="<?php echo userLiked($the_post_id) ? 'unlike' : 'like'; ?>" href=""><span class="glyphicon glyphicon-thumbs-up" data-toggle="tooltip" data-placement="top" title="<?php echo userLiked($the_post_id) ? 'You liked this before' : 'Want to like it?'; ?>"></span> <?php echo userLiked($the_post_id) ? 'Unlike' : 'Like'; ?></a></p>
             </div>
           <?php } else { ?>
             <div class="row">
             <p class="pull-right">You need to <a href="./login.php">Login</a> to like!</p>
-        </div>
-      <?php } ?>
+            </div>
+          <?php } ?>
 
       <div class="row">
         <p class="pull-right countLikes">Likes: <?php getPostLikes($the_post_id); ?></p>
@@ -224,6 +224,7 @@ if (isset($_GET['p_id'])) {
 
     <script>
       $(document).ready(function() {
+        $('[data-toggle="tooltip"]').tooltip();
         var post_id = <?php echo $post_id; ?>;
         var user_id = <?php echo loggedinUserId(); ?>;
 
