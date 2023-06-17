@@ -14,12 +14,32 @@ function checkQuery($query)
   }
 }
 
+function makeQuery($query)
+{
+  global $connection;
+  return mysqli_query($connection, $query);
+}
+
+function fetchRecords($result)
+{
+  return mysqli_fetch_array($result);
+}
+
+
+function isLoggedIn()
+{
+  if (isset($_SESSION['user_role'])) {
+    return true;
+  }
+  return false;
+}
+
 function redirectToAnotherPage($where)
 {
   echo "<script type='text/javascript'>
       window.location = 'http://localhost:8080/CMS-Project/main/main/admin/$where' 
       </script>";
-      exit;
+  exit;
 }
 
 function usersOnline()
@@ -153,6 +173,11 @@ function countRecords($table)
   return $count;
 }
 
+function count_records($result)
+{
+  return mysqli_num_rows($result);
+}
+
 function selectByCondition($table, $condition)
 {
   global $connection;
@@ -163,25 +188,88 @@ function selectByCondition($table, $condition)
   return $count;
 }
 
-function isAdmin($user_name = '')
+function isAdmin()
 {
-  global $connection;
-  $query = "SELECT user_role FROM users WHERE user_name = '$user_name'";
-  $selectRole = mysqli_query($connection, $query);
-  checkQuery($selectRole);
+  $user_id = $_SESSION['user_id'];
 
-  $row = mysqli_fetch_array($selectRole);
-  if ($row['user_role'] == 'Admin') {
-    return true;
-  } else {
-    return false;
+  if (isLoggedIn()) {
+    global $connection;
+    $selectRole = makeQuery("SELECT user_role FROM users WHERE user_id = $user_id");
+    checkQuery($selectRole);
+
+    $row = fetchRecords($selectRole);
+    if ($row['user_role'] == 'Admin') {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 
-function placeholderEmptyImage($img=null){
-  if(!$img) {
+function loggedinUserId()
+{
+  if (isLoggedIn()) {
+    $result = makeQuery("SELECT * FROM users WHERE user_name='" . $_SESSION['user_name'] . "'");
+    $users = mysqli_fetch_array($result);
+    return mysqli_num_rows($result) >= 1 ? $users['user_id'] : false;
+  }
+  return false;
+}
+
+function placeholderEmptyImage($img = null)
+{
+  if (!$img) {
     return 'No-Image-Placeholder.png';
   } else {
     return $img;
   }
+}
+
+
+function getAllUserPosts()
+{
+  $result = makeQuery("SELECT * FROM posts WHERE user_id=" . loggedinUserId() . "");
+  checkQuery($result);
+  return $result;
+}
+
+function getAllUserComments()
+{
+  $result = makeQuery("SELECT * FROM posts INNER JOIN comments ON posts.post_id = comments.comment_post_id WHERE user_id=" . loggedinUserId() . "");
+  checkQuery($result);
+}
+
+function getAllUserCategories()
+{
+  $result = makeQuery("SELECT * FROM categories WHERE user_id=" . loggedinUserId() . "");
+  checkQuery($result);
+  return $result;
+}
+
+function getAllUserPublishedPosts()
+{
+  $result = makeQuery("SELECT * FROM posts WHERE user_id=" . loggedinUserId() . " AND post_status='Published'");
+  checkQuery($result);
+  return $result;
+}
+
+function getAllUserDraftPosts()
+{
+  $result = makeQuery("SELECT * FROM posts WHERE user_id=" . loggedinUserId() . " AND post_status='Draft'");
+  checkQuery($result);
+  return $result;
+}
+
+function getAllUserApprovedComments()
+{
+  $result = makeQuery("SELECT * FROM comments WHERE user_id=" . loggedinUserId() . " AND comments_status='Approved'");
+  checkQuery($result);
+  return $result;
+}
+
+function getAllUserUnapprovedComments()
+{
+  $result = makeQuery("SELECT * FROM comments WHERE user_id=" . loggedinUserId() . " AND comments_status='Unapproved'");
+  checkQuery($result);
+  return $result;
 }

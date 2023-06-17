@@ -7,7 +7,7 @@ if (isset($_SESSION['user_id'])) {
 
   checkQuery($selectAllInf);
 
-  while ($row = mysqli_fetch_assoc($selectAllInf)) {
+  while ($row = fetchRecords($selectAllInf)) {
     $user_name = $row['user_name'];
     $user_firstname = $row['user_firstname'];
     $user_lastname = $row['user_lastname'];
