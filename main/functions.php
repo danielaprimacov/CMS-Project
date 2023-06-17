@@ -6,6 +6,12 @@ function redirectToAnotherPage($where)
         window.location = 'http://localhost:8080/CMS-Project/main/main/$where'</script>";
 }
 
+function makeQuery($query)
+{
+  global $connection;
+  return mysqli_query($connection, $query);
+}
+
 function checkQuery($query)
 {
   global $connection;
@@ -31,9 +37,9 @@ function addComment()
       echo "<div class='alert alert-danger' role='alert'>Comment cannot be empty!</div>";
     } else {
 
-      $query = "INSERT INTO comments (comment_post_id, comment_author, comment_email, comment_content, comment_status, comment_date) VALUES ({$the_post_id}, '{$comment_author}', '{$comment_email}', '{$comment_content}', 'Unapproved', now())";
+      $addAllComments = makeQuery("INSERT INTO comments (comment_post_id, comment_author, comment_email, comment_content, comment_status, comment_date) VALUES ({$the_post_id}, '{$comment_author}', '{$comment_email}', '{$comment_content}', 'Unapproved', now())");
 
-      $addAllComments = mysqli_query($connection, $query);
+
       if (checkQuery($addAllComments)) {
         echo "";
       } else {
@@ -65,8 +71,6 @@ function usernameExists($user_name)
     return false;
   }
 }
-
-
 
 function emailExists($user_email)
 {
@@ -169,6 +173,22 @@ function isLoggedIn()
   return false;
 }
 
+function loggedinUserId()
+{
+  if (isLoggedIn()) {
+    $result = makeQuery("SELECT * FROM users WHERE user_name='" . $_SESSION['user_name'] ."'");
+    $users = mysqli_fetch_array($result);
+    return mysqli_num_rows($result) >= 1 ? $users['user_id'] : false;
+  }
+  return false;
+}
+
+function userLiked($post_id='') {
+  $result = makeQuery("SELECT * FROM likes WHERE user_id=" .loggedInUserId() . " AND post_id={$post_id}");
+  checkQuery($result);
+  return mysqli_num_rows($result) >= 1 ? true : false;
+}
+
 function checkIfUserIsLoggedInAndRedirect($location = null)
 {
   if (isLoggedIn()) {
@@ -189,15 +209,14 @@ function addLike($user_id, $post_id)
 {
   global $connection;
   // Select specific post
-  $postToLike = "SELECT * FROM posts WHERE post_id=$post_id";
-  $postToLikeQuery = mysqli_query($connection, $postToLike);
+  $postToLikeQuery = makeQuery("SELECT * FROM posts WHERE post_id=$post_id");
   checkQuery($postToLikeQuery);
 
   $postResult = mysqli_fetch_array($postToLikeQuery);
   $likes = $postResult['likes'];
 
   // Update post with likes
-  $updateLikesQuery = mysqli_query($connection, "UPDATE posts SET likes=$likes+1 WHERE post_id=$post_id");
+  $updateLikesQuery = makeQuery("UPDATE posts SET likes=$likes+1 WHERE post_id=$post_id");
   checkQuery($updateLikesQuery);
 
   // Create likes for post
@@ -225,4 +244,11 @@ function unLike($user_id, $post_id)
   checkQuery($updateLikesQuery);
 
   exit();
+}
+
+function getPostLikes($post_id) {
+  $result = makeQuery("SELECT * FROM likes WHERE post_id=$post_id");
+  checkQuery($result);
+
+  echo mysqli_num_rows($result);
 }
