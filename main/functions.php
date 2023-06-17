@@ -220,7 +220,7 @@ function addLike($user_id, $post_id)
   checkQuery($updateLikesQuery);
 
   // Create likes for post
-  $insertQuery = mysqli_query($connection, "INSERT INTO likes(user_id, post_id) VALUES($user_id, $post_id)");
+  $insertQuery = makeQuery("INSERT INTO likes(user_id, post_id) VALUES($user_id, $post_id)");
   checkQuery($insertQuery);
   exit();
 }
@@ -228,19 +228,18 @@ function addLike($user_id, $post_id)
 function unLike($user_id, $post_id)
 {
   global $connection;
-  $postToUnLike = "SELECT * FROM posts WHERE post_id=$post_id";
-  $postToUnLikeQuery = mysqli_query($connection, $postToUnLike);
+  $postToUnLikeQuery = makeQuery("SELECT * FROM posts WHERE post_id=$post_id");
   checkQuery($postToUnLikeQuery);
 
   $postResult = mysqli_fetch_array($postToUnLikeQuery);
   $likes = $postResult['likes'];
 
   // Delete likes
-  $deleteLikes = mysqli_query($connection, "DELETE FROM likes WHERE post_id=$post_id AND user_id=$user_id");
+  $deleteLikes = makeQuery("DELETE FROM likes WHERE post_id=$post_id AND user_id=$user_id");
   checkQuery($deleteLikes);
 
   // Update post with likes
-  $updateLikesQuery = mysqli_query($connection, "UPDATE posts SET likes=$likes-1 WHERE post_id=$post_id");
+  $updateLikesQuery = makeQuery("UPDATE posts SET likes=$likes-1 WHERE post_id=$post_id");
   checkQuery($updateLikesQuery);
 
   exit();

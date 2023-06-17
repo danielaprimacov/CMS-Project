@@ -115,105 +115,117 @@ if (isset($_GET['p_id'])) {
 
           <?php mysqli_stmt_free_result($stmt); ?>
 
-          <div class="row">
-            <p class="pull-right"><a class="<?php echo userLiked($the_post_id) ? 'unlike' : 'like'; ?>" href=""><span class="glyphicon glyphicon-thumbs-up"></span> <?php echo userLiked($the_post_id) ? 'Unlike' : 'Like'; ?></a><span id="countLikes"> <?php getPostLikes($post_id); ?></span></p>
-          </div>
-          <div class="clearfix"></div>
+          <?php if (isLoggedIn()) { ?>
 
-        <?php } ?>
-        <!-- Blog Comments -->
-
-        <?php addComment(); ?>
-
-        <!-- Comments Form -->
-        <div class="well">
-          <h4>Leave a Comment:</h4>
-          <form action="" method="post" role="form">
-            <div class="form-group">
-              <label class="form-label" for="comment_author">Your name</label>
-              <input class="form-control" type="text" name="comment_author">
+            <div class="row">
+              <p class="pull-right"><a class="<?php echo userLiked($the_post_id) ? 'unlike' : 'like'; ?>" href=""><span class="glyphicon glyphicon-thumbs-up"></span> <?php echo userLiked($the_post_id) ? 'Unlike' : 'Like'; ?></a></p>
             </div>
-            <div class="form-group">
-              <label class="form-label" for="comment_email">Your email</label>
-              <input class="form-control" type="email" name="comment_email">
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="comment_content">Your comment</label>
-              <textarea class="form-control" rows="3" name="comment_content"></textarea>
-            </div>
-            <button type="submit" class="btn btn-success" name="add_comment">Add your comment</button>
-          </form>
+          <?php } else { ?>
+            <div class="row">
+            <p class="pull-right">You need to <a href="./login.php">Login</a> to like!</p>
         </div>
+      <?php } ?>
 
-        <hr>
+      <div class="row">
+        <p class="pull-right countLikes">Likes: <?php getPostLikes($the_post_id); ?></p>
+      </div>
+      <div class="clearfix"></div>
 
-        <!-- Posted Comments -->
 
-        <?php
-        $query = "SELECT * FROM comments WHERE comment_post_id = {$the_post_id} AND comment_status = 'Approved' ORDER BY comment_id DESC ";
-        $selectApprovedComments = mysqli_query($connection, $query);
-        checkQuery($selectApprovedComments);
+    <?php } ?>
+    <!-- Blog Comments -->
 
-        while ($row = mysqli_fetch_assoc($selectApprovedComments)) {
-          $comment_date = $row['comment_date'];
-          $comment_author = $row['comment_author'];
-          $comment_content = $row['comment_content'];
-        ?>
+    <?php addComment(); ?>
 
-          <!-- Comment -->
-          <div class="media">
-            <a class="pull-left" href="#">
-              <img class="media-object" src="http://placehold.it/64x64" alt="Profile image">
-            </a>
-            <div class="media-body">
-              <h4 class="media-heading"><?php echo $comment_author; ?>
-                <small><?php echo $comment_date; ?></small>
-              </h4>
-              <?php echo $comment_content; ?>
-            </div>
-          </div>
-        <?php } ?>
-      <?php } else {
-      redirectToAnotherPage("index.php?page=1");
-    }
-      ?>
+    <!-- Comments Form -->
+    <div class="well">
+      <h4>Leave a Comment:</h4>
+      <form action="" method="post" role="form">
+        <div class="form-group">
+          <label class="form-label" for="comment_author">Your name</label>
+          <input class="form-control" type="text" name="comment_author">
         </div>
+        <div class="form-group">
+          <label class="form-label" for="comment_email">Your email</label>
+          <input class="form-control" type="email" name="comment_email">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="comment_content">Your comment</label>
+          <textarea class="form-control" rows="3" name="comment_content"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success" name="add_comment">Add your comment</button>
+      </form>
+    </div>
 
-        <!-- Blog Sidebar Widgets Column -->
-        <?php include "includes/blog-sidebar.php"; ?>
+    <hr>
 
+    <!-- Posted Comments -->
+
+    <?php
+    $query = "SELECT * FROM comments WHERE comment_post_id = {$the_post_id} AND comment_status = 'Approved' ORDER BY comment_id DESC ";
+    $selectApprovedComments = mysqli_query($connection, $query);
+    checkQuery($selectApprovedComments);
+
+    while ($row = mysqli_fetch_assoc($selectApprovedComments)) {
+      $comment_date = $row['comment_date'];
+      $comment_author = $row['comment_author'];
+      $comment_content = $row['comment_content'];
+    ?>
+
+      <!-- Comment -->
+      <div class="media">
+        <a class="pull-left" href="#">
+          <img class="media-object" src="http://placehold.it/64x64" alt="Profile image">
+        </a>
+        <div class="media-body">
+          <h4 class="media-heading"><?php echo $comment_author; ?>
+            <small><?php echo $comment_date; ?></small>
+          </h4>
+          <?php echo $comment_content; ?>
+        </div>
+      </div>
+    <?php } ?>
+  <?php } else {
+  redirectToAnotherPage("index.php?page=1");
+}
+  ?>
+      </div>
+
+      <!-- Blog Sidebar Widgets Column -->
+      <?php include "includes/blog-sidebar.php"; ?>
+
+    </div>
+    <!-- /.row -->
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+      <div class="row">
+        <div class="col-lg-12">
+          <p>Copyright &copy; Star Coding 2023</p>
+        </div>
+        <!-- /.col-lg-12 -->
       </div>
       <!-- /.row -->
+    </footer>
 
-      <hr>
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
 
-      <!-- Footer -->
-      <footer>
-        <div class="row">
-          <div class="col-lg-12">
-            <p>Copyright &copy; Star Coding 2023</p>
-          </div>
-          <!-- /.col-lg-12 -->
-        </div>
-        <!-- /.row -->
-      </footer>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
 
-      <!-- jQuery -->
-      <script src="js/jquery.js"></script>
+    </body>
 
-      <!-- Bootstrap Core JavaScript -->
-      <script src="js/bootstrap.min.js"></script>
-
-      </body>
-
-      </html>
+    </html>
 
     </div>
 
     <script>
       $(document).ready(function() {
         var post_id = <?php echo $post_id; ?>;
-        var user_id = 5;
+        var user_id = <?php echo loggedinUserId(); ?>;
 
         $('.like').click(function(e) {
           e.preventDefault();
